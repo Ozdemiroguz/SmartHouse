@@ -1,3 +1,5 @@
+import 'package:flutter/material.dart';
+
 // user.dart
 class User {
   int userId;
@@ -63,3 +65,4 @@ class SensorReading {
     required this.humidity,
   });
 }
+
