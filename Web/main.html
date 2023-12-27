@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="main.css">
+    <title>Anasayfa</title>
+</head>
+<body>
+    <div class="topnav">
+        <a class="active" href="#home">HOME</a>
+        <a href="#contact">CONTACT</a>
+        <a href="#Logout">LOGOUT</a>
+        <h1>SOMEONE'S HOUSE</h1>
+    </div>
+    <div class="body_container">
+        <div class="card">
+            <img src="image/user.jpg" alt="user" style="width: 80%;border-radius:50% ; margin:auto; margin-top: 10px;">
+            <p style="margin-bottom:30px ;" id="userInfo"></p>
+           <!-- <h2>USERNAME</h2>
+            <p class="title">NAME SURNAME</p>
+            <p class="title">INFORMATION </p>
+            -->
+            <div>
+                <p style="margin-top: 10px;" id="city"><i class="fa-solid fa-location-dot"></i> ISTANBUL</p>
+                <div class="ik">
+                    <i class="fa-solid fa-cloud" ></i>
+                    <i class="fa-solid fa-temperature-low"></i>
+                    <i class="fa-solid fa-droplet"></i>
+                </div>
+                <div class="ik">
+                    <p id="temp"></p>
+                    <p id="feels_like"></p>
+                    <p id="humidity"></p>
+                    
+                </div>
+            </div>
+        </div>
+        <div class="blue-container" id="blueContainer"> 
+            <div class="box" id="roomBox" style="display: none; flex-direction: column; border-width: 2; width: 200px;">
+                <h1>Lorem</h1>
+                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quidem blanditiis commodi, ab in sit maiores recusandae. Suscipit, aperiam reiciendis. Nesciunt maiores saepe sit repellendus aspernatur enim facere, asperiores dolore adipisci.</p>
+            </div>
+        </div>
+    </div>
+ <script src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+body{
+    background-color:white;
+}
+.topnav {
+background-color: #A9A9A9;
+overflow: hidden;
+border-radius: 10px;
+}
+.body_container{
+display: flex;
+justify-content: center;
+}
+/* Style the links inside the navigation bar */
+.topnav a {
+float: left;
+color: #f2f2f2;
+text-align: center;
+padding: 14px 16px;
+text-decoration: none;
+font-size: 12px;
+border-radius: 3px;
+}
+
+/* Change the color of links on hover */
+.topnav a:hover {
+background-color: #ddd;
+color: black;
+}
+
+/* Add a color to the active/current link */
+.topnav a.active {
+background-color: #2F4F4F;
+color: white;
+}
+.card {
+max-width: 270px;
+height: 610px;
+margin: auto;
+float:left;
+text-align: center;
+margin-right:20px ;
+margin-top: 10px;
+margin-left: 20px;
+box-shadow: 10px 10px 5px 0px rgba(109, 105, 105, 0.5);
+border-radius: 10px;
+background-color: #e2e2e2;
+}
+.title {
+color: black;
+font-size: 15px;
+margin: auto;
+}
+h1 {
+   font-size: 20px;
+   margin: 5px;  /* H2 etiketinin varsayılan margin'ini sıfırla */
+   text-align: center;  /* Metni ortala */
+   color: #2F4F4F;  /* Yazı rengini beyaz yap, görünürlük arttırmak için */
+   font-family: Garamond, serif;
+   padding-top: 5px;
+}
+.blue-container {
+   width:1250px;
+   height:520px;
+   margin: auto;
+   float:left;
+   position: relative;
+   flex-direction:row;
+   text-align: center;
+   margin-right:20px ;
+   margin-top: 10px;
+   box-shadow: 10px 10px 5px 0px rgba(109, 105, 105, 0.5);
+   border-radius: 10px;
+   background-color: #e2e2e2;
+   padding :40px 50px 50px;
+   justify-content: center;
+    align-items: center;
+}
+.box {
+       max-width: 200px;
+       width: 100%;
+       height: 230px;
+       background-color:#C8C8C8;
+       margin: 10px;
+       padding: 10px;
+       border-radius: 20px;
+       z-index: -1;
+       margin-bottom: 20px;
+       margin-top: 1px;
+       text-align: center;
+       /*Bu stil kuralları .box sınıfına eklenmiştir. display: flex; ile birlikte, flex-direction: column; sütun düzenini sağlar, justify-content: center; ile dikey yönde ortalanır ve align-items: center; ile yatayda ortalanır. Bu, içerideki yazıları kutunun ortasına getirecektir.*/
+       display: flex;
+       flex-direction: column;
+       justify-content: center;
+       align-items: center;
+       font-family: Garamond, serif;
+       font-size: 20px;
+       color:#2F4F4F;
+       font-weight: bold;
+       box-shadow: 10px 10px 5px 0px rgba(109, 105, 105, 0.4);
+       display: inline-block;
+       
+        line-height: 50px;
+        flex: 1;
+   }
+   .box:hover{
+       transform: scale(1.05);
+       z-index: 2;
+   }
+   .box2 {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    background-color: lightblue;
+    margin: 5px;
+    text-align: center;
+    line-height: 50px;
+    }
+   .ik{
+       justify-content: center;
+       align-items: center;
+       display: flex;
+       flex-direction: row;
+       margin-left: 5px;
+       padding :5px;
+       text-align: center;
+   }
+   .ik i{
+       display: flex;
+       font-size: 25px;
+       margin-right: 15px;
+   }
+   .ik p{
+       margin-right: 15px;
+   }
