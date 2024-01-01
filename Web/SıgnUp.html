@@ -1,88 +1,102 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link href='https://unpkg.com/boxicons@2.1.1/css/boxicons.min.css' rel='stylesheet'>
-    <link rel = "stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css">
     <title>Sign Up</title>
     <style>
         body {
-        background-color: #C8C8C8;
-        background-repeat: no-repeat;
-        background-position: center center;
-        background-attachment: fixed;
-        background-size: cover;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        font-family: Arial, sans-serif;
-        height: 100%;
+            background-color: #C8C8C8;
+            background-repeat: no-repeat;
+            background-position: center center;
+            background-attachment: fixed;
+            background-size: cover;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            font-family: Arial, sans-serif;
+            height: 100%;
         }
+
         .container {
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        max-width: 700px;
-        width: 90%;
-        border: 5px solid #1C3341;
-        row-gap: 30px;
-        border-radius: 20px;
-        padding:60px 60px 80px;
-        box-shadow: 10px 10px 5px 0px rgba(109, 105, 105, 0.5);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            max-width: 700px;
+            width: 90%;
+            border: 5px solid #1C3341;
+            row-gap: 30px;
+            border-radius: 20px;
+            padding: 60px 60px 80px;
+            box-shadow: 10px 10px 5px 0px rgba(109, 105, 105, 0.5);
         }
+
         .title {
-        background-color: #1a2a3c;
-        padding: 0;
-        width: 100%;
-        height: 10vh;
-        border: 3px solid #1C3341;
-        border-radius:10px;
-        color:lightblue;
+            background-color: #1a2a3c;
+            padding: 0;
+            width: 100%;
+            height: 10vh;
+            border: 3px solid #1C3341;
+            border-radius: 10px;
+            color: lightblue;
         }
+
         h2 {
-        width: 100%;
-        text-align: center;
+            width: 100%;
+            text-align: center;
         }
+
         .form-group {
-        margin-bottom: 15px;
-        row-gap: 10px;
-        display: flex;
-        flex-direction: column;
+            margin-bottom: 15px;
+            row-gap: 10px;
+            display: flex;
+            flex-direction: column;
         }
-        button:hover{
-            transform:scale(1.1);
+
+        button:hover {
+            transform: scale(1.1);
         }
-        a:hover{
-            transform:scale(1.1);
+
+        a:hover {
+            transform: scale(1.1);
         }
     </style>
 </head>
+
 <body>
-    <div class="container" id="signin"> 
-        <div class="title"> 
+    <div class="container" id="signin">
+        <div class="title">
             <h2>SIGN UP</h2>
         </div>
-        <form id="signUpForm" style="display: flex; flex-direction: column; align-items: center;"> 
+        <form id="signUpForm" style="display: flex; flex-direction: column; align-items: center;">
             <div class="form-group">
                 <label for="ad">Name :</label>
-                <input style="border-radius: 5px;"  type="text" id="ad" name="ad" required>
+                <input style="border-radius: 5px;" type="text" id="ad" name="ad" required>
             </div>
             <div class="form-group">
                 <label for="soyAd">Surname :</label>
-                <input style="border-radius: 5px;"  type="text" id="soyAd" name="soyAd" required>
+                <input style="border-radius: 5px;" type="text" id="soyAd" name="soyAd" required>
             </div>
             <div class="form-group">
                 <label for="email">e-mail :</label>
-                <input style="border-radius: 5px;" style="border-radius: 5px;"  type="text" id="email" name="email" required>
+                <input style="border-radius: 5px;" style="border-radius: 5px;" type="text" id="email" name="email"
+                    required>
+            </div>
+            <div class="form-group">
+                <label for="phone">Phone :</label>
+                <input style="border-radius: 5px;" type="phones" id="phone" name="phone" required>
             </div>
             <div class="form-group">
                 <label for="passWord">Password :</label>
-                <input style="border-radius: 5px;"  type="password" id="passWord" name="passWord" required>
+                <input style="border-radius: 5px;" type="password" id="passWord" name="passWord" required>
             </div>
-           <!--<div class ="content" style="margin-top: 0px;">
+
+            <!--<div class ="content" style="margin-top: 0px;">
                 <ul class = "requirement-list" style = " list-style : none; font-size:12px;">
                     <p style ="font-size:16px;margin-bottom: 0px; margin-top:0px">Şifre bunları içermelidir</p>
                     <li>
@@ -106,12 +120,12 @@
                         <span> en az bir büyük harf içermeli (A..Z) </span>
                     </li>
                 </ul>
-            </div>--> 
+            </div>-->
             <div class="form-group">
                 <label for="passwordd">Confirm Password :</label>
                 <input style="border-radius: 5px;" type="password" id="passwordd" name="passwordd" required>
             </div>
-            <div  class="form-group">
+            <!--<div  class="form-group">
                 <label for="odaSayisi">Select number of rooms:</label>
                 <select style="border-radius: 5px;"  id="odaSayisi" name="odaSayisi" required onchange = "getOptionValue()" >
                     <option value="0" disabled selected style="display:none;border-radius: 5px;"  >Select Number of Rooms </option>
@@ -119,22 +133,25 @@
                     <option value="2">2</option>
                     <option value="3">3</option>
                     <option value="4">4</option>
-                    <!-- Diğer seçenekleri buraya ekleyebilirsiniz -->
+                     Diğer seçenekleri buraya ekleyebilirsiniz 
                 </select>
                 <div id="form" style="display: flex; flex-direction: column;" >
 
                 </div>
-            </div>
+            </div>-->
             <div class="form-group" id="radioContainer"></div>
-            <button onclick="kayitTamamla()" type="submit" style = "background-color: #122738;color:lightblue ;font-size: 15px; border-radius: 5px;  ">Sign Up</button>
-           <!-- ! <a href="ev">Sign up now</a> -->
+            <button type="submit"
+                style="background-color: #122738;color:lightblue ;font-size: 15px; border-radius: 5px;  ">Sign
+                Up</button>
+            <!-- ! <a href="ev">Sign up now</a> -->
         </form>
         <div style="display: flex;flex-direction: column; row-gap: 5px; width: 100%; align-items: center;">
             <span style="font-size: 15px;color:#122738; text-align: center;">Do you have an account?</span>
             <a href="SıgnIn.html">Sign in now</a>
         </div>
     </div>
-    <script src="SıgnUp.js"> 
+    <script src="SıgnUp.js">
     </script>
 </body>
+
 </html>

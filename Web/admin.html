@@ -1,12 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="admin.css">
     <title>Admin Dashboard</title>
+    <script src="admin.js"></script>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background-color: #2F4F4F;
+            color: black;
+            padding: 15px;
+            text-align: center;
+        }
+
+        nav {
+            background-color: #A9A9A9;
+            padding: 15px;
+            width: 200px;
+            height: 700px;
+            float: left;
+            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+        }
+
+        nav a {
+            text-decoration: none;
+            color: #333;
+            display: block;
+            padding: 10px;
+            margin-bottom: 5px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        nav a:hover {
+            background-color: #ddd;
+        }
+
+        section {
+            margin-left: 220px;
+            padding: 15px;
+        }
+
+        h2 {
+            color: #333;
+        }
+
+        .users {
+            margin-left: 15px;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(800px, 1fr));
+            grid-gap: 15px;
+        }
+
+        .users div {
+            background-color: #fff;
+            padding: 15px;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            position: relative;
+        }
+
+        .online {
+            background-color: green;
+        }
+
+        .offline {
+            background-color: darkgrey;
+        }
+
+        .user-status {
+            position: absolute;
+            top: 15px;
+            right: 45px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: inline-block;
+            /* Bu satırı ekleyin */
+        }
+
+        i {
+            top: 30px;
+            right: 25px;
+            width: 20px;
+            height: 20px;
+            font-size: 20px;
+            color: #333;
+            transition: color 0.3s;
+            display: inline-block;
+            /* Bu satırı ekleyin */
+        }
+
+        i:hover {
+            color: green;
+        }
+
+        .user-info {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+            z-index: 999;
+        }
+
+        .user-info input {
+            margin-bottom: 10px;
+        }
+    </style>
+
 </head>
+
 <body>
     <header>
         <h1>Admin Page</h1>
@@ -19,41 +137,47 @@
         <a href="#">Settings</a>
     </nav>
     <section>
-        <div class="users" id="au_id">  
-            <!--ALINAN KULLANICILARA GÖRE DOLDURULACAK ŞEKİLDE AYARLANACAK-->
-            <div class="user-item" data-userid="1">
-                <div>Name: , Surname: , email: , Password: , Number of Room: ,<span class="user-status online"></span></div>
-                <i class="fa-solid fa-gear" onclick="openUserInfo(1)"></i>
+        <section>
+            <div class="users" id="userList">
+                <!-- Kullanıcılar buraya dinamik olarak eklenir -->
+
+                <div id="roomList"></div>
             </div>
-            <div class="user-item" data-userid="2">
-                <div>Name: , Surname: , email: , Password: , Number of Room: ,<span class="user-status offline"></span></div>
-                <i class="fa-solid fa-gear" onclick="openUserInfo(2)"></i>
+            <div>
+                <p>Add a new user</p>
+                <button onclick="openUserInfoModalAddUser()">Add User</button>
             </div>
-            <div class="user-item" data-userid="3">
-                <div>Name: , Surname: , email: , Password: , Number of Room: ,<span class="user-status online"></span></div>
-                <i class="fa-solid fa-gear" onclick="openUserInfo(3)"></i>
-            </div>
-            <div class="user-item" data-userid="4">
-                <div>Name: , Surname: , email: , Password: , Number of Room: ,<span class="user-status offline"></span></div>
-                <i class="fa-solid fa-gear" onclick="openUserInfo(4)"></i>
-            </div>
-            <div class="user-item" data-userid="5">
-                <div>Name: , Surname: , email: , Password: , Number of Room: ,<span class="user-status online"></span></div>
-                <i class="fa-solid fa-gear" onclick="openUserInfo(5)"></i>
-            </div>
-        </div>
+        </section>
     </section>
+
     <!-- User Info Modal -->
     <div class="user-info" id="userInfoModal">
-        <h2>Edit User Info</h2>
+        <h2 id="modalTitle">Edit User Info</h2>
         <input type="text" id="userName" placeholder="Name">
         <input type="text" id="userSurname" placeholder="Surname">
+        <input type="text" id="userPhone" placeholder="Phone">
         <input type="email" id="userEmail" placeholder="Email">
-        <input type="password" id="userPassword" placeholder="Password">
-        <input type="text" id="userRoom" placeholder="Number of Room">
-        <button onclick="saveUserInfo()">Save</button>
+        <input type="text" id="password" placeholder="Password" style="display: none;">
+        <input type="number" id="userRoom" placeholder="Number of Room">
+        <input type="number" id="userActive" placeholder="Active">
+
+        <button id="saveButton" onclick="saveUserInfo()">Save</button>
         <button onclick="closeUserInfo()">Cancel</button>
     </div>
+    <div class="user-info" id="roomInfoModal">
+        <h2 id="modalTitle">Edit User Info</h2>
+        <input type="text" id="userName" placeholder="Name">
+        <input type="text" id="userSurname" placeholder="Surname">
+        <input type="text" id="userPhone" placeholder="Phone">
+        <input type="email" id="userEmail" placeholder="Email">
+        <input type="text" id="password" placeholder="Password" style="display: none;">
+        <input type="number" id="userRoom" placeholder="Number of Room">
+        <input type="number" id="userActive" placeholder="Active">
+
+        <button id="saveButton" onclick="saveUserInfo()">Save</button>
+        <button onclick="closeUserInfo()">Cancel</button>
+    </div>
+
     <script>
         function openUserInfo(userId) {
             var modal = document.getElementById('userInfoModal');
@@ -66,10 +190,11 @@
             modal.style.display = 'none';
         }
 
-        function saveUserInfo() {
+        /*function saveUserInfo() {
             // Burada, modal içindeki bilgileri kullanarak kullanıcı bilgilerini güncelleyebilirsiniz.
             closeUserInfo();
-        }
+        }*/
     </script>
 </body>
+
 </html>
