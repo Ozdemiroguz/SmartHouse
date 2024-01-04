@@ -72,7 +72,6 @@ async function login(event) {
             console.error('İstek hatası:', error);
         });
 
-
 }
 // Kullanıcı girişi yapma fonksiyonu
 
@@ -100,7 +99,18 @@ function loadUserLocally() {
 }
 
 
+function validateForm() {
+    var email = document.getElementById('email').value;
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+    if (!emailRegex.test(email)) {
+        alert("Please enter a valid email address.");
+        return false; // prevent form submission
+    }
+
+    // Continue with form submission if email is valid
+    return true;
+}
 
 
 

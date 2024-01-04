@@ -38,7 +38,12 @@ async function kayitOl(event) {
         return;
     }
     // POST isteği için veri objesini oluştur
-
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(user.email)) {
+        alert("Please enter a valid email address.");
+        return false; // prevent form submission
+    }
+   
     try {
         const response = await fetch('https://nodejs-mysql-api-sand.vercel.app/api/v1/auth/register', {
             method: 'POST',
@@ -63,6 +68,12 @@ async function kayitOl(event) {
         console.error('Error:', error);
         document.getElementById('result').innerText = 'An error occurred.';
     }
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(user.email)) {
+        alert("Please enter a valid email address.");
+        return false; // prevent form submission
+    }
+    return true;
 };
 
 
@@ -113,3 +124,15 @@ function getOptionValue() {
     }
 }
 
+function validateForm() {
+    var email = document.getElementById('email').value;
+    var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    if (!emailRegex.test(email)) {
+        alert("Please enter a valid email address.");
+        return false; // prevent form submission
+    }
+
+    // Continue with form submission if email is valid
+    return true;
+}
