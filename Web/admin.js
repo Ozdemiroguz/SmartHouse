@@ -276,8 +276,6 @@ function saveUserInfo() {
     //
 }
 function addUser() {
-
-
     // Kullanıcı bilgilerini modal'a doldur
     const userNameInput = document.getElementById('userName');
     const userSurnameInput = document.getElementById('userSurname');
@@ -378,6 +376,7 @@ function openRooms(userID) {
                 alert("Kullanıcının odası bulunmamaktadır");
                 return;
             }
+            else{
             data.data.forEach(room => {
                 const roomItem = document.createElement('div');
                 roomItem.classList.add('room-item');
@@ -389,6 +388,7 @@ function openRooms(userID) {
                 `;
                 document.getElementById('roomList').appendChild(roomItem);
             });
+            }
         })
         .catch(error => {
             console.error('Oda bilgilerini alma hatası:', error);

@@ -64,6 +64,9 @@ async function login(event) {
                 console.log('Name:', data.data.name);
                 console.log('Email:', data.data.email);
                 window.location.href = "main.html";
+                var redirectUrl = 'main.html';
+                // Yönlendirme işlemi
+                window.location.href = redirectUrl;
             } else {
                 console.error('Giriş başarısız:', data.error);
             }
@@ -71,7 +74,7 @@ async function login(event) {
         .catch(error => {
             console.error('İstek hatası:', error);
         });
-
+      
 }
 // Kullanıcı girişi yapma fonksiyonu
 

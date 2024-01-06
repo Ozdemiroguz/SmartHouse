@@ -95,7 +95,6 @@ function createRoom() {
 function loadUserLocally() {
     const storedUser = localStorage.getItem('currentUser');
     if (storedUser) {
-
         // JSON formatındaki kullanıcı bilgilerini nesneye dönüştürüyoruz
         const tempUser = JSON.parse(storedUser);
         console.log(tempUser)
@@ -103,12 +102,14 @@ function loadUserLocally() {
         currentUser.mail = tempUser.email;
         console.log(currentUser)
 
-
         console.log('User loaded from local storage:', currentUser);
     } else {
-        localStorage.setItem()
+        // Eğer localStorage'ta kullanıcı bilgisi yoksa, burada set etmelisiniz.
+        // Örneğin:
+        localStorage.setItem('currentUser', JSON.stringify(currentUser));
     }
 }
+
 function loadUserFromServer() {
     const apiUrl = 'https://nodejs-mysql-api-sand.vercel.app/api/v1/user'; // API'nizin gerçek adresiyle değiştirin
     console.log(currentUser.ID)
