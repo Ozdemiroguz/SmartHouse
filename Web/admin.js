@@ -99,7 +99,8 @@ function closeUserInfo() {
 // API'nin temel URL'sini buraya ekleyin
 var currentUserId;
 
-const apiUrl = 'https://nodejs-mysql-api-sand.vercel.app/api/v1/user'; // API'nizin gerçek adresiyle değiştirin
+const apiUrl = 'https://nodejs-mysql-api-sand.vercel.app/api/v1/user';
+// API'nizin gerçek adresiyle değiştirin
 
 //Tüm kullanıcıları getir
 
@@ -161,11 +162,15 @@ async function fetchUsers() {
             data.data.forEach(user => {
                 const userItem = document.createElement('div');
                 userItem.classList.add('user-item');
-                userItem.dataset.userid = user.UserID; // Kullanıcı kimliğini veri özelliğine ekle
+                userItem.dataset.userid = user.UserID;
+                userItem.id = user.UserID
+                // Kullanıcı kimliğini veri özelliğine ekle
                 userItem.innerHTML = `
                     <div>Name: ${user.Name}, Surname: ${user.Surname}, Email: ${user.Mail}, Password:*********, Number of Room: ${user.NumberOfRooms}, Active:${user.Active}<span class="user-status online"></span></div>
                     <i class="fa-solid fa-gear" onclick="openUserInfoModal(${user.UserID})"></i>
                     <i class="fa-solid fa-house "onclick="openRooms(${user.UserID})"></i>
+                    <i class="fa-solid fa-house "onclick="openRoomInfoModal(${user.UserID})">+</i>
+
                     <button class="delete-user-button" onclick="deleteUser(${user.UserID})">Delete User</button>
                 `;
                 userListElement.appendChild(userItem);
@@ -276,6 +281,8 @@ function saveUserInfo() {
     //
 }
 function addUser() {
+
+
     // Kullanıcı bilgilerini modal'a doldur
     const userNameInput = document.getElementById('userName');
     const userSurnameInput = document.getElementById('userSurname');
@@ -333,7 +340,6 @@ function openUserInfoModalAddUser() {
     const userRoomInput = document.getElementById('userRoom');
     const userActiveInput = document.getElementById('userActive');
     const userPhoneInput = document.getElementById('userPhone');
-
     const userInfoModal = document.getElementById('userInfoModal');
     userInfoModal.style.display = 'block';
     const userPasswordInput = document.getElementById('password');
@@ -358,7 +364,7 @@ function openRooms(userID) {
 
     //fetch rooms
     const roomsUrl = 'https://nodejs-mysql-api-sand.vercel.app/api/v1/room';
-    fetch(`${roomsUrl}/${userID}`, {
+    fetch(`${roomsUrl}/${userID}/rooms`, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -376,7 +382,6 @@ function openRooms(userID) {
                 alert("Kullanıcının odası bulunmamaktadır");
                 return;
             }
-            else{
             data.data.forEach(room => {
                 const roomItem = document.createElement('div');
                 roomItem.classList.add('room-item');
@@ -386,12 +391,78 @@ function openRooms(userID) {
                     <i class="fa-solid fa-gear" onclick="openRoomInfoModal(${room.RoomID})"></i>
                     <button class="delete-room-button" onclick="deleteRoom(${room.RoomID})">Delete Room</button>
                 `;
+                console.log(roomItem);
                 document.getElementById('roomList').appendChild(roomItem);
             });
-            }
         })
         .catch(error => {
             console.error('Oda bilgilerini alma hatası:', error);
+        });
+
+}
+function openRoomInfoModal(userId) {
+    //modalı aç
+    const roomInfoModal = document.getElementById('roomInfoModal');
+    roomInfoModal.style.display = 'block';
+    currentUserId = userId;
+
+    // Kullanıcı bilgilerini modal'a doldur
+    // Burada userID'yi kullanarak API'den ilgili kullanıcı bilgilerini çekebilirsiniz
+    //fetcth ile kullanıcı bilgilerini çek
+    // İsteğe bağlı olarak istediğiniz kullanıcının ID'sini belirtin
+}
+function closeRoomInfo() {
+    // Modal'ı kapat
+    const roomInfoModal = document.getElementById('roomInfoModal');
+    roomInfoModal.style.display = 'none';
+}
+function addRoom() {
+    // Kullanıcı bilgilerini modal'a doldur
+    console.log(currentUserId);
+    const roomNameInput = document.getElementById('roomName');
+    const optimumTemperatureInput = document.getElementById('optimumTemperature');
+    const optimumHumidityInput = document.getElementById('optimumHumidity');
+    const optimumGaseInput = document.getElementById('optimumGase');
+    const roomTypeInput = document.getElementById('roomType');
+
+
+    //verileri  kontrol et
+    if (roomNameInput.value == "" || optimumTemperatureInput.value == "" || optimumHumidityInput.value == "" || optimumGaseInput.value == "" || roomTypeInput.value == "") {
+        alert("Lütfen tüm alanları doldurunuz");
+        return;
+    }
+
+    const newRoomData = {
+        roomName: roomNameInput.value,
+        optimumTemperature: optimumTemperatureInput.value,
+        optimumHumidity: optimumHumidityInput.value,
+        optimumGase: optimumGaseInput.value,
+        roomType: roomTypeInput.value,
+    };
+    //fetch try catch ile
+    fetch(`https://nodejs-mysql-api-sand.vercel.app/api/v1/room/${currentUserId}/rooms`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(newRoomData),
+    })
+        .then(response => response.json())
+        .then(data => {
+            //kontrol et
+            if (data.status == "error") {
+                console.error('Oda oluşturma hatası:', data);
+
+                alert("Oda eklenemedi");
+                return;
+            }
+            console.log('Oda oluşturuldu:', data.status);
+            //Kullanıcı eklendi mesajı göster
+            alert("Oda eklendi");
+            //sayfayı yenile
+        })
+        .catch(error => {
+            console.error('Oda oluşturma hatası:', error);
         });
 
 }

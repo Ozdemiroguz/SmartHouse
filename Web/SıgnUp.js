@@ -19,7 +19,7 @@ async function kayitOl(event) {
     user.email = document.getElementById("email").value;
     user.password = document.getElementById("passWord").value;
     user.phone = document.getElementById("phone").value;
-    var confirmPassWord = document.getElementById("passwordd").value;
+    var confirmPassWord = document.getElementById("confirmPassWord").value;
 
     console.log(user);
     /*var ad = document.getElementById("ad").value;
@@ -43,7 +43,7 @@ async function kayitOl(event) {
         alert("Please enter a valid email address.");
         return false; // prevent form submission
     }
-   
+
     try {
         const response = await fetch('https://nodejs-mysql-api-sand.vercel.app/api/v1/auth/register', {
             method: 'POST',

@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="admin.css">
     <title>Admin Dashboard</title>
     <script src="admin.js"></script>
-    
+
 
 </head>
 
@@ -53,20 +53,26 @@
         <button id="saveButton" onclick="saveUserInfo()">Save</button>
         <button onclick="closeUserInfo()">Cancel</button>
     </div>
-    <div class="user-info" id="roomInfoModal">
-        <h2 id="modalTitle">Edit User Info</h2>
-        <input type="text" id="userName" placeholder="Name">
-        <input type="text" id="userSurname" placeholder="Surname">
-        <input type="text" id="userPhone" placeholder="Phone">
-        <input type="email" id="userEmail" placeholder="Email">
-        <input type="text" id="password" placeholder="Password" style="display: none;">
-        <input type="number" id="userRoom" placeholder="Number of Room">
-        <input type="number" id="userActive" placeholder="Active">
 
-        <button id="saveButton" onclick="saveUserInfo()">Save</button>
-        <button onclick="closeUserInfo()">Cancel</button>
+    <div class="user-info" id="roomInfoModal">
+        <h2 id="modalTitle">Add Room Info</h2>
+        <input type="text" id="roomName" placeholder="Name">
+        <input type="text" id="optimumTemperature" placeholder="Optimum Temperature">
+        <input type="text" id="optimumHumidity" placeholder="Optimum Humidity">
+        <input type="text" id="optimumGase" placeholder="Optimum Gase">
+        <select name="roomType" id="roomType">
+            <option value="Bedroom">Bedroom</option>
+            <option value="Living Room">Living Room</option>
+            <option value="Kitchen">Kitchen</option>
+            <option value="Bathroom">Bathroom</option>
+            <option value="Office">Balcony</option>
+            <option value="Children Room">Children Room</option>
+            <option value="Other">Other</option>
+        </select>
+        <button id="saveButton" onclick="addRoom()">Save</button>
+        <button onclick="closeRoomInfo()">Cancel</button>
     </div>
-    
+
     <script>
         function openUserInfo(userId) {
             var modal = document.getElementById('userInfoModal');
@@ -78,11 +84,7 @@
             var modal = document.getElementById('userInfoModal');
             modal.style.display = 'none';
         }
-        function openRoomInfo()
-        {
-            var modal = document.getElementById('roomInfoModal');
-            modal.style.display='none';
-        }
+
         /*function saveUserInfo() {
             // Burada, modal içindeki bilgileri kullanarak kullanıcı bilgilerini güncelleyebilirsiniz.
             closeUserInfo();
