@@ -24,25 +24,25 @@
         margin-top: 60px;
         }
         .container {
-          background-color: #C8C8C8;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        max-width: 350px;
-        width: 90%;
-        /*border: 5px solid #1C3341;
-        row-gap: 30px;*/
-        border-radius: 10px;
-        padding:40px 60px 80px;
-        box-shadow: 10px 10px 5px 0px rgba(109, 105, 105, 0.5);
-        }
+      background-color: #C8C8C8;
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      max-width: 300px;
+      width: 90%;
+      border-radius: 10px;
+      padding: 40px 60px 80px;
+      box-shadow: 10px 10px 5px 0px rgba(109, 105, 105, 0.5);
+      margin-top: 65px; /* Adjust the margin-top value to move the container down */
+    }
         .title {
             /* background-color: #1a2a3c;*/
             padding: 0 0;
             /*border: 3px solid #1C3341;*/
             border-radius: 10px;
             color: black;
+            margin-top: 15px;
         }
         .form-group {
         margin-bottom: 15px;
@@ -74,17 +74,74 @@
                 border-radius: 5px;
                 font-size: 15px
         }
-        h3{
-            color:#4691E0;
-            font-size: 40px;
+        h3 {
+            color: #4691E0;
+            font-size: 30px;
             margin-bottom: 10px;
+            position: absolute;
+            top: 0px;
+            left: 10px;
         }
+        .foto {
+      position: relative;
+    }
+    .foto img {
+      width: 160px; /* Adjust the width as needed */
+      height: auto;
+      position: absolute;
+      top: -40px; /* Adjust the top value to partially extend outside the container */
+      left: 50%;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      border: 3px solid white; /* Match the container's background color */
+      z-index: 1; /* Set a higher z-index to bring the image in front of the container */
+    }
+    .loader {
+            display: block;
+            --height-of-loader: 4px;
+            --loader-color: purple;
+            width: 160px;
+            height: var(--height-of-loader);
+            border-radius: 30px;
+            background-color: rgba(0, 0, 0, 0.2);
+            position: absolute;
+            top: 10px; /* Adjust the top value as needed */
+            left: 10px;
+        }
+
+        .loader::before {
+            content: "";
+            position: absolute;
+            background: var(--loader-color);
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 100%;
+            border-radius: 30px;
+            animation: moving 5s ease-in-out infinite;
+            ;
+            }
+
+            @keyframes moving {
+            50% {
+                width: 100%;
+            }
+
+            100% {
+                width: 0;
+                right: 0;
+                left: unset;
+            }
+            }
   </style>
   <title>Giris Yap</title>
 </head>
 
 <body>
+  <div class="loader"></div>
   <h3>ELTAGRON</h3>
+  <div class="foto">
+    <img src="image/eltagronhouse.jpg"  style="border-radius:50% ; margin:auto">
   <div class="container" id="signin">
     <div class="title">
       <h2>SIGN IN</h2>
@@ -117,6 +174,7 @@
       <a style="color:black" href="SıgnUp.html">Sign up now</a>
     </div>
   </div>
+</div>
   <script src="SıgnIn.js"></script>
 </body>
 
