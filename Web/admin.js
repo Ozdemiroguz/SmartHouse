@@ -5,9 +5,6 @@ document.addEventListener('DOMContentLoaded', function () {
     // Sayfa yüklendiğinde tüm kullanıcıları çek ve listele
     fetchUsers();
 });
-
-
-
 function openUserInfoModal(userID) {
     // Kullanıcı bilgilerini modal'a doldur
     const userInfoModal = document.getElementById('userInfoModal');
@@ -213,8 +210,8 @@ function openUserInfoModal(userID) {
     const userRoomInput = document.getElementById('userRoom');
     const userActiveInput = document.getElementById('userActive');
     const userPhoneInput = document.getElementById('userPhone');
-
-
+    
+   
     // Burada userID'yi kullanarak API'den ilgili kullanıcı bilgilerini çekebilirsiniz
     //fetcth ile kullanıcı bilgilerini çek
     // İsteğe bağlı olarak istediğiniz kullanıcının ID'sini belirtin
@@ -236,19 +233,17 @@ function openUserInfoModal(userID) {
         .catch(error => {
             console.error('Veri çekme hatası:', error);
         });
-
+       
+    
 }
 // Kullanıcı bilgilerini güncelle
 function saveUserInfo() {
     //modaldaki verileri al
     //confirm kullan
     //bilgilerin değişip değişmediğini kontrol et
-
     if (!confirm('Kullanıcı bilgilerini güncellemek istediğinizden emin misiniz?')) {
         return;
     }
-
-
     // Belirli bir kullanıcıyı güncelle
     const updatedUserData = {
         mail: document.getElementById('userEmail').value,
@@ -258,7 +253,6 @@ function saveUserInfo() {
         numberOfRooms: document.getElementById('userRoom').value,
         active: document.getElementById('userActive').value,
     };
-
     fetch(`${apiUrl}/updateUser/${currentUserId}`, {
         method: 'PUT',
         headers: {
@@ -281,8 +275,6 @@ function saveUserInfo() {
     //
 }
 function addUser() {
-
-
     // Kullanıcı bilgilerini modal'a doldur
     const userNameInput = document.getElementById('userName');
     const userSurnameInput = document.getElementById('userSurname');
@@ -361,7 +353,6 @@ function openUserInfoModalAddUser() {
 }
 function openRooms(userID) {
     console.log(userID);
-
     //fetch rooms
     const roomsUrl = 'https://nodejs-mysql-api-sand.vercel.app/api/v1/room';
     fetch(`${roomsUrl}/${userID}/rooms`, {
@@ -405,7 +396,6 @@ function openRoomInfoModal(userId) {
     const roomInfoModal = document.getElementById('roomInfoModal');
     roomInfoModal.style.display = 'block';
     currentUserId = userId;
-
     // Kullanıcı bilgilerini modal'a doldur
     // Burada userID'yi kullanarak API'den ilgili kullanıcı bilgilerini çekebilirsiniz
     //fetcth ile kullanıcı bilgilerini çek

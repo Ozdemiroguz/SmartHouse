@@ -11,8 +11,8 @@
     <div class="topnav">
         <a class="active" href="#home">HOME</a>
         <a href="#contact">CONTACT</a>
-        <a href="#Logout">LOGOUT</a>
-        <h1>SOMEONE'S HOUSE</h1>
+        <a href="#Logout" onclick="redirectToSignIn()">LOGOUT</a>
+        <h1 style="color:purple">SOMEONE'S HOUSE</h1>
     </div>
     <div class="body_container">
         <div class="card">
@@ -52,5 +52,9 @@
         </div>
     </div>
  <script src="main.js"></script>
+ <script>  
+    function redirectToSignIn() {
+    window.location.href = "index.html";
+  }</script>
 </body>
 </html>

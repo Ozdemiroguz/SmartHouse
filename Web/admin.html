@@ -18,19 +18,22 @@
     </header>
     <nav>
         <a href="#">Main</a>
-        <a href="#">Users</a>
+        <a href="#" onclick="redirectToAdmin()" >Users</a>
         <a href="#">Product</a>
         <a href="#">Graphs</a>
         <a href="#">Settings</a>
     </nav>
     <section>
         <section>
+            <section id="usersec">
             <div class="users" id="userList">
                 <!-- Kullanıcılar buraya dinamik olarak eklenir -->
-
+            </section>
+            <section id="roomsec">
                 <div id="roomList">
 
                 </div>
+            </section>
             </div>
             <div>
                 <p>Add a new user</p>
@@ -38,10 +41,10 @@
             </div>
         </section>
     </section>
-
+    <section class="information">
     <!-- User Info Modal -->
     <div class="user-info" id="userInfoModal">
-        <h2 id="modalTitle">Edit User Info</h2>
+        <h2 id="modalTitle">Information</h2>
         <input type="text" id="userName" placeholder="Name">
         <input type="text" id="userSurname" placeholder="Surname">
         <input type="text" id="userPhone" placeholder="Phone">
@@ -49,13 +52,9 @@
         <input type="text" id="password" placeholder="Password" style="display: none;">
         <input type="number" id="userRoom" placeholder="Number of Room">
         <input type="number" id="userActive" placeholder="Active">
-
         <button id="saveButton" onclick="saveUserInfo()">Save</button>
         <button onclick="closeUserInfo()">Cancel</button>
-    </div>
-
-    <div class="user-info" id="roomInfoModal">
-        <h2 id="modalTitle">Add Room Info</h2>
+    <div id="roomInfoModal">
         <input type="text" id="roomName" placeholder="Name">
         <input type="text" id="optimumTemperature" placeholder="Optimum Temperature">
         <input type="text" id="optimumHumidity" placeholder="Optimum Humidity">
@@ -70,12 +69,13 @@
             <option value="Other">Other</option>
         </select>
         <button id="saveButton" onclick="addRoom()">Save</button>
-        <button onclick="closeRoomInfo()">Cancel</button>
+        <button onclick="closeRoomInfo()">Cancel</button></div>
     </div>
-
+    </section>
     <script>
         function openUserInfo(userId) {
             var modal = document.getElementById('userInfoModal');
+
             modal.style.display = 'block';
             // Burada, userId'ye göre kullanıcı bilgilerini modal içinde doldurabilirsiniz.
         }
@@ -84,7 +84,9 @@
             var modal = document.getElementById('userInfoModal');
             modal.style.display = 'none';
         }
-
+        function redirectToAdmin() {
+        closeUserInfo();
+        }
         /*function saveUserInfo() {
             // Burada, modal içindeki bilgileri kullanarak kullanıcı bilgilerini güncelleyebilirsiniz.
             closeUserInfo();
