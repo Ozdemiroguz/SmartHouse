@@ -10,9 +10,10 @@ currentUser = {
 let weatherData = {};
 const city = document.getElementById("city");
 const temp = document.getElementById("temp");
-const humidity = document.getElementById("humidity");
+const humidity =  document.getElementById("humidity");
 const feels_like = document.getElementById("feels_like");
 window.addEventListener("DOMContentLoaded", loadContent)
+
 
 var rooms = [
     { roomId: 1, roomName: "Mutfak", roomDesc: "Mutfak verileri için tıklayınız" },
@@ -24,36 +25,35 @@ var rooms = [
     { roomId: 7, roomName: "Misafir odası", roomDesc: "Misafir odası verileri için tıklayınız" },
 ]
 function loadContent() {
+    fetchWeather() 
     loadUserLocally()
     loadUserFromServer()
     console.log(currentUser)
-    fetchWeather()
-    createRoom()
-
+    createRoom() 
 }
 
-function fetchWeather() {
-    const url = "https://api.openweathermap.org/data/2.5/weather?q=Istanbul&appid=08c51fb1f1565c23c154f933b3230297&units=metric";
+function fetchWeather(){
+    const url ="https://api.openweathermap.org/data/2.5/weather?q=Istanbul&appid=08c51fb1f1565c23c154f933b3230297&units=metric";
 
     fetch(url).then(res => {
-        if (res.ok) {
+         if(res.ok){
             return res.json();
-        } else {
+        }else {
             throw new Error("Yer algılanamadı");
         }
     })
-        .then(
-            (data) => {
-                console.log(data)
-                temp.innerText = data.main.temp;
-                feels_like.innerText = data.main.feels_like;
-                humidity.innerText = data.main.humidity;
-
-            }
-        )
-        .catch((error) => {
-            console.error("Hava durumu alınırken hata oluştu:", error);
-        });
+    .then(
+        (data) => {
+            console.log(data)
+            temp.innerText= data.main.temp;
+            feels_like.innerText=data.main.feels_like;
+            humidity.innerText=data.main.humidity;
+            
+        }
+    )
+    .catch((error) => {
+        console.error("Hava durumu alınırken hata oluştu:", error);
+    });
 
 }
 var name = localStorage.getItem('ad');
@@ -62,7 +62,6 @@ var email = localStorage.getItem('email');
 var password = localStorage.getItem('passWord');
 var nrooms = localStorage.getItem('odaSayisi');
 // Kullanıcı bilgilerini görüntüle
-
 
 
 function createRoomContainers() {
@@ -83,9 +82,6 @@ function createRoomContainers() {
 //createRoomContainers();
 
 function createRoom() {
-
-
-
     var blueContainer = document.getElementById("blueContainer")
     rooms.forEach(function (room) {
         let roomBox = document.getElementById("roomBox").cloneNode(true);
