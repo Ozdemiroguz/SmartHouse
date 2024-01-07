@@ -1,13 +1,13 @@
 import mysql.connector
 
 mydb = mysql.connector.connect(
-    host="localhost",
-    user="root",
+    host="mysql6008.site4now.net",
+    user="aa363f_shome",
     password="Adocu123!",
     auth_plugin='mysql_native_password',
-    database="smarthomev2"
+    database="db_aa363f_shome"
 )
 
 mycursor = mydb.cursor()
 
-sql = "INSERT INTO temp_hum (Temperature,Humidity) VALUES (%s, %s)"
+print (mydb)
