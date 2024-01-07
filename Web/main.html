@@ -10,7 +10,7 @@
 <body>
     <div class="topnav">
         <a class="active" href="#home">HOME</a>
-        <a href="#contact">CONTACT</a>
+        <a href="#contact" onclick="redirectToContact()">CONTACT</a>
         <a href="#Logout" onclick="redirectToSignIn()">LOGOUT</a>
         <h1 style="color:purple">SOMEONE'S HOUSE</h1>
     </div>
@@ -29,12 +29,10 @@
                     <i class="fa-solid fa-temperature-low"></i>
                     <i class="fa-solid fa-droplet"></i>
                 </div>
-        
                 <div class="ik">
                     <p id="temp"></p>
                     <p id="feels_like"></p>
                     <p id="humidity"></p>
-                    
                 </div>
                 <label class="switch">
                     <span class="sun"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="#ffd43b"><circle r="5" cy="12" cx="12"></circle><path d="m21 13h-1a1 1 0 0 1 0-2h1a1 1 0 0 1 0 2zm-17 0h-1a1 1 0 0 1 0-2h1a1 1 0 0 1 0 2zm13.66-5.66a1 1 0 0 1 -.66-.29 1 1 0 0 1 0-1.41l.71-.71a1 1 0 1 1 1.41 1.41l-.71.71a1 1 0 0 1 -.75.29zm-12.02 12.02a1 1 0 0 1 -.71-.29 1 1 0 0 1 0-1.41l.71-.66a1 1 0 0 1 1.41 1.41l-.71.71a1 1 0 0 1 -.7.24zm6.36-14.36a1 1 0 0 1 -1-1v-1a1 1 0 0 1 2 0v1a1 1 0 0 1 -1 1zm0 17a1 1 0 0 1 -1-1v-1a1 1 0 0 1 2 0v1a1 1 0 0 1 -1 1zm-5.66-14.66a1 1 0 0 1 -.7-.29l-.71-.71a1 1 0 0 1 1.41-1.41l.71.71a1 1 0 0 1 0 1.41 1 1 0 0 1 -.71.29zm12.02 12.02a1 1 0 0 1 -.7-.29l-.66-.71a1 1 0 0 1 1.36-1.36l.71.71a1 1 0 0 1 0 1.41 1 1 0 0 1 -.71.24z"></path></g></svg></span>
@@ -46,8 +44,15 @@
         </div>
         <div class="blue-container" id="blueContainer"> 
             <div class="box" id="roomBox" style="display: none; flex-direction: column; border-width: 2; width: 200px;">
-                <h1>Lorem</h1>
-                <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quidem blanditiis commodi, ab in sit maiores recusandae. Suscipit, aperiam reiciendis. Nesciunt maiores saepe sit repellendus aspernatur enim facere, asperiores dolore adipisci.</p>
+                <p>odalar</p>
+                <i class="fa-solid fa-chart-simple" id="chartIcon" style="cursor: pointer;"></i>
+             <!-- <!   <div class="panel" id="roomPanel">
+                    <p>panel içeriği</p>
+                    <button onclick="closePanel()">Kapat</button> -->
+                </div>
+                <div class="panel"> 
+                    <p>PANEL</p>
+                </div>
             </div>
         </div>
     </div>
@@ -55,6 +60,11 @@
  <script>  
     function redirectToSignIn() {
     window.location.href = "index.html";
-  }</script>
+  }
+  function redirectToContact(){
+        alert("Phone Number : 05********  E-mail: info@eltagron.com.tr.");
+        
+    } 
+  </script>
 </body>
 </html>

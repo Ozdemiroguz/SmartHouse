@@ -15,7 +15,7 @@ const feels_like = document.getElementById("feels_like");
 window.addEventListener("DOMContentLoaded", loadContent)
 
 
-var rooms = [
+/*var rooms = [
     { roomId: 1, roomName: "Mutfak", roomDesc: "Mutfak verileri için tıklayınız" },
     { roomId: 2, roomName: "Salon", roomDesc: "Salon verileri için tıklayınız" },
     { roomId: 3, roomName: "Yatak Odası", roomDesc: "Yatak odası verileri için tıklayınız" },
@@ -23,7 +23,7 @@ var rooms = [
     { roomId: 5, roomName: "Banyo", roomDesc: "Banyo verileri için tıklayınız" },
     { roomId: 6, roomName: "Çalışma odası", roomDesc: "Çalışma odasıverileri için tıklayınız" },
     { roomId: 7, roomName: "Misafir odası", roomDesc: "Misafir odası verileri için tıklayınız" },
-]
+]*/
 function loadContent() {
     fetchWeather() 
     loadUserLocally()
@@ -64,32 +64,51 @@ var nrooms = localStorage.getItem('odaSayisi');
 // Kullanıcı bilgilerini görüntüle
 
 
-function createRoomContainers() {
+/*function createRoomContainers(nrooms) {
     // Get the "blue-container" element
     var blueContainer = document.querySelector('.blue-container');
-    // Adding 2 to nrooms and storing it in a new variable
-    var newNrooms = parseInt(nrooms);
-    // Clear existing containers
-    // blueContainer.innerHTML = '';
-    // Create containers based on the selected room count
-    for (var i = 0; i < newNrooms; i++) {
+    blueContainer.innerHTML = '';
+    // Create containers based on the room count
+    for (var i = 0; i < nrooms; i++) {
         var roomContainer = document.createElement('div');
         roomContainer.className = 'box';
         roomContainer.innerText = 'Room ' + (i + 1);
         blueContainer.appendChild(roomContainer);
     }
-}
+}*/
 //createRoomContainers();
 
 function createRoom() {
-    var blueContainer = document.getElementById("blueContainer")
-    rooms.forEach(function (room) {
-        let roomBox = document.getElementById("roomBox").cloneNode(true);
-        roomBox.style.display = "inline-block";
-        roomBox.children[0].innerText = room.roomName
-        roomBox.children[1].innerText = room.roomDesc
-        blueContainer.append(roomBox)
-    });
+    const roomsUrl = 'https://nodejs-mysql-api-sand.vercel.app/api/v1/room';
+    fetch(`${roomsUrl}/${currentUser.ID}}/rooms`, {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+    })
+        .then(response => response.json())
+        .then(data => {
+            console.log('Kullanıcının odaları:', data.data);
+            console.log('Tüm odalar:', data);
+            //check if user has rooms
+            //roomsList divini al
+            const roomsList = document.getElementById('roomList');
+            //room liste başlık oluştur
+            if (data.data.length == 0) {
+                alert("Kullanıcının odası bulunmamaktadır");
+                return;
+            }
+            data.data.forEach(room => {
+                let roomBox = document.getElementById("roomBox").cloneNode(true);
+                roomBox.style.display = "inline-block";
+                roomBox.children[0].innerText = room.RoomType
+                blueContainer.append(roomBox)
+            });
+        })
+        .catch(error => {
+            console.error('Oda bilgilerini alma hatası:', error);
+        });
+   
     //card header -- h1
 }
 function loadUserLocally() {
@@ -137,3 +156,17 @@ function loadUserFromServer() {
         });
 
 }
+
+/*document.getElementById("chartIcon").onclick = function() {
+    var panel = document.getElementById("roomPanel");
+    if (panel.style.display === "none") {
+      panel.style.display = "block";
+    } else {
+      panel.style.display = "none";
+    }
+  }
+// Function to close the panel
+function closePanel() {
+    var roomPanel = document.getElementById('roomPanel');
+    roomPanel.style.display = 'none';
+}*/
