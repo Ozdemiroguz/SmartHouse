@@ -8,37 +8,21 @@ function githubLogin() {
     window.location.replace(githubAuthUrl);
 }
 function login() {
-
-    //
     //kontorllerden sonra
     var userInfo = {
         email: email,
         password: password
     };
-
-
-
-
-
-
     // Convert the object to a JSON string and save it to localStorage
     localStorage.setItem("userInfo", JSON.stringify(userInfo));
-
-
-
 }
 
 document.getElementById("signInForm").addEventListener("submit", login);
 
-// Örnek kullanıcı bilgileri
-
-
 async function login(event) {
 
     event.preventDefault(); // Formun varsayılan davranışını engelle
-
     const apiUrl = 'https://nodejs-mysql-api-sand.vercel.app/api/v1/auth/login'; // API'nizin gerçek adresiyle değiştirin
-
     // Kullanıcı girişi için örnek veri
     const loginData = {
         email: document.getElementById("email").value, password: document.getElementById("password").value,
@@ -67,7 +51,11 @@ async function login(event) {
                 var redirectUrl = 'main.html';
                 // Yönlendirme işlemi
                 window.location.href = redirectUrl;
-            } else {
+            } 
+            //if(data.data.userId=="33"){
+
+            //}
+                else {
                 console.error('Giriş başarısız:', data.error);
             }
         })
@@ -105,12 +93,10 @@ function loadUserLocally() {
 function validateForm() {
     var email = document.getElementById('email').value;
     var emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
     if (!emailRegex.test(email)) {
         alert("Please enter a valid email address.");
         return false; // prevent form submission
     }
-
     // Continue with form submission if email is valid
     return true;
 }

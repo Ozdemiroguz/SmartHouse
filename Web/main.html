@@ -45,13 +45,25 @@
         <div class="blue-container" id="blueContainer"> 
             <div class="box" id="roomBox" style="display: none; flex-direction: column; border-width: 2; width: 200px;">
                 <p>odalar</p>
-                <i class="fa-solid fa-chart-simple" id="chartIcon" style="cursor: pointer;"></i>
-             <!-- <!   <div class="panel" id="roomPanel">
-                    <p>panel içeriği</p>
-                    <button onclick="closePanel()">Kapat</button> -->
+                <div  style="color:black" class="datas" id="datas">
+                    <p id="temp" style="margin-top: 50px;">Temp:</p>
+                    <p id="humidity" style="margin-top: 5px;">Humidity: <p>
+                        <p id="gas" style="margin-top: 5px;">Gas:</p>
+                        <p id="fire" style="margin-top: 5px;">Fire:</p>
+                        <p id="move" style="margin-top: 5px;">Move:</p>
                 </div>
-                <div class="panel"> 
-                    <p>PANEL</p>
+                <i class="fa-solid fa-chart-simple" id="chartIcon" style="cursor: pointer;"></i>
+            </div>
+            <div id="boxmodal" class="modal">
+                <div class="modal-content">
+                    <span class="close">&times;</span>
+                    <div class="datas" id="datas">
+                        <p id="temp" style="margin-top: 50px;">Temp:</p>
+                        <p id="humidity" style="margin-top: 5px;">Humidity: <p>
+                            <p id="gas" style="margin-top: 5px;">Gas:</p>
+                            <p id="fire" style="margin-top: 5px;">Fire:</p>
+                            <p id="move" style="margin-top: 5px;">Move:</p>
+                    </div>
                 </div>
             </div>
         </div>
@@ -65,6 +77,18 @@
         alert("Phone Number : 05********  E-mail: info@eltagron.com.tr.");
         
     } 
+    document.getElementById('chartIcon').addEventListener('click', function() {
+    // Paneli ve overlay'i görünür yap
+    document.getElementById('panel').style.display = 'block';
+    document.getElementById('overlay').style.display = 'block';
+    });
+
+
+    document.getElementById('kapatButton').addEventListener('click', function() {
+  // Paneli ve overlay'i gizle
+    document.getElementById('panel').style.display = 'none';
+    document.getElementById('overlay').style.display = 'none';
+    });
   </script>
 </body>
 </html>

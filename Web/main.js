@@ -156,17 +156,17 @@ function loadUserFromServer() {
         });
 
 }
-
-/*document.getElementById("chartIcon").onclick = function() {
-    var panel = document.getElementById("roomPanel");
-    if (panel.style.display === "none") {
-      panel.style.display = "block";
-    } else {
-      panel.style.display = "none";
+var modal = document.getElementById("boxmodal");
+var ikons = document.getElementById("blueContainer");
+var span =document.getElementsByClassName("close")[0];
+ikons.onclick=function(){
+    modal.style.display="block";
+}
+span.onclick=function(){
+    modal.style.display="none";
+}
+window.onclick=function(event){
+    if(event.target == modal){
+        modal.style.display="none";
     }
-  }
-// Function to close the panel
-function closePanel() {
-    var roomPanel = document.getElementById('roomPanel');
-    roomPanel.style.display = 'none';
-}*/
+}
