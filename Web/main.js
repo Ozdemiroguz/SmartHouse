@@ -30,6 +30,7 @@ function loadContent() {
     loadUserFromServer()
     console.log(currentUser)
     createRoom() 
+    GetTemperature()
 }
 
 function fetchWeather(){
@@ -67,6 +68,7 @@ var nrooms = localStorage.getItem('odaSayisi');
 /*function createRoomContainers(nrooms) {
     // Get the "blue-container" element
     var blueContainer = document.querySelector('.blue-container');
+    ""
     blueContainer.innerHTML = '';
     // Create containers based on the room count
     for (var i = 0; i < nrooms; i++) {
@@ -108,8 +110,6 @@ function createRoom() {
         .catch(error => {
             console.error('Oda bilgilerini alma hatası:', error);
         });
-   
-    //card header -- h1
 }
 function loadUserLocally() {
     const storedUser = localStorage.getItem('currentUser');
@@ -156,7 +156,7 @@ function loadUserFromServer() {
         });
 
 }
-var modal = document.getElementById("boxmodal");
+/*var modal = document.getElementById("boxmodal");
 var ikons = document.getElementById("blueContainer");
 var span =document.getElementsByClassName("close")[0];
 ikons.onclick=function(){
@@ -169,4 +169,129 @@ window.onclick=function(event){
     if(event.target == modal){
         modal.style.display="none";
     }
+}*/
+/*
+var chartData = [data.main.tempc];
+async function GetTemperature() {
+
+    try {
+        const response = await fetch(`https://nodejs-mysql-api-sand.vercel.app/api/v1/getSensor/getSensorReadings10?sensorType=Temp_Hum&roomID=${currentUser.ID}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': `Bearer YOUR_API_KEY`, // API anahtarınızı ekleyin
+                'Content-Type': 'application/json',
+            }
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        console.log(data);
+
+        // API'dan alınan sıcaklık verilerini kullanarak chartData'yi güncelle
+        const temps = data.main.tempc; // API'dan alınan sıcaklık değeri
+        const d = new Date();
+        const hour = d.getHours();
+        const minute = d.getMinutes();
+        const second = d.getSeconds();
+        const temperature = [{ v: [hour, minute, second] }, temp, `color: ${GetColor(temps)}`];
+
+        chartData.push(temperature);
+        if (chartData.length === 11) {
+            chartData.shift();
+        }
+
+        // Grafikleri çiz
+        drawBasic();
+        drawChart();
+    } catch (error) {
+        console.error('Error:', error);
+    }
+}
+
+    
+const options = {
+
+    title: 'Temperature Of The Room',
+    hAxis: {
+        title: 'Time of Day',
+        format: 'H:mm:ss',
+    },
+    vAxis: {
+        title: 'Temperature (scale of 5-30)',
+        viewWindow: {
+            min: 5,
+            max: 30,
+        }
+    },
+    legend: 'none',
+
+}; 
+google.charts.load('current', { packages: ['corechart'] });
+google.charts.setOnLoadCallback(drawBasic);
+google.charts.setOnLoadCallback(drawChart);
+setInterval(function () {
+    GetTemperature()
+    drawBasic();
+    drawChart();
+}, 1000); // 10 
+setInterval(drawBasic, 1000);
+
+
+function drawBasic() {
+
+    var data = new google.visualization.DataTable();
+    data.addColumn('timeofday', 'Time of Day');
+    data.addColumn('number', 'Temprature');
+    data.addColumn({ type: 'string', role: 'style' });
+    data.addRows(chartData);
+    var chart = new google.visualization.ColumnChart(
+        document.getElementById('chart_div'));
+    chart.draw(data, options);
+}
+function drawChart() {
+    var data = new google.visualization.DataTable();
+    data.addColumn('timeofday', 'Time of Day');
+    data.addColumn('number', 'Motivation Level');
+    data.addColumn({ type: 'string', role: 'style' });
+
+    // İlk veri satırları
+
+
+    data.addRows(chartData);
+
+    // Grafik seçenekleri
+
+
+    var chart = new google.visualization.LineChart(document.getElementById('chart_div1'));
+
+    chart.draw(data, options);
+}
+function GetColor(value) {
+    return value < 14 ? "#FDFD04"
+        : value < 16 ? "#FBD400"
+            : value < 18 ? "#FB9E00"
+                : value < 20 ? "#F97C00"
+                    : "#FE3F02";
+}*/
+function GetTemperature()
+{
+    fetch(`https://nodejs-mysql-api-sand.vercel.app/api/v1/getSensor/getAllLatestSensorReadings?roomID=${roomID}`, {
+    method: 'GET',
+    headers: {
+        'Authorization': 'Bearer YOUR_API_KEY',
+        'Content-Type': 'application/json',
+    },
+})
+    .then(response => response.json())
+    .then(data => {
+        console.log('Getting temperature...');
+        console.log(data);
+    })
+    .catch(error => {
+        
+        console.error('Error:', error);
+    });
 }

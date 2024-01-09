@@ -46,15 +46,19 @@
             <div class="box" id="roomBox" style="display: none; flex-direction: column; border-width: 2; width: 200px;">
                 <p>odalar</p>
                 <div  style="color:black" class="datas" id="datas">
-                    <p id="temp" style="margin-top: 50px;">Temp:</p>
-                    <p id="humidity" style="margin-top: 5px;">Humidity: <p>
-                        <p id="gas" style="margin-top: 5px;">Gas:</p>
-                        <p id="fire" style="margin-top: 5px;">Fire:</p>
-                        <p id="move" style="margin-top: 5px;">Move:</p>
+                    <p id="tempc" style="margin-top: 5px;">Temp:</p>
+                    <p id="humidityc" style="margin-top: 5px;">Humidity: <p>
+                        <p id="gasc" style="margin-top: 5px;">Gas:</p>
+                        <p id="firec" style="margin-top: 5px;">Fire:</p>
+                        <p id="movec" style="margin-top: 5px;">Move:</p>
                 </div>
                 <i class="fa-solid fa-chart-simple" id="chartIcon" style="cursor: pointer;"></i>
-            </div>
-            <div id="boxmodal" class="modal">
+               <!--   <div style=" width: 100%; flex-direction: row; display: flex; ">
+                    <div id="chart_div" style=" flex: 1; height: 500px;"></div>
+                    <div id="chart_div1" style=" flex: 1; height: 500px;"></div>
+                </div>
+            </div>-->
+           <!--  <div id="boxmodal" class="modal">
                 <div class="modal-content">
                     <span class="close">&times;</span>
                     <div class="datas" id="datas">
@@ -65,8 +69,10 @@
                             <p id="move" style="margin-top: 5px;">Move:</p>
                     </div>
                 </div>
-            </div>
+            </div>-->
+           
         </div>
+       
     </div>
  <script src="main.js"></script>
  <script>  
@@ -77,7 +83,7 @@
         alert("Phone Number : 05********  E-mail: info@eltagron.com.tr.");
         
     } 
-    document.getElementById('chartIcon').addEventListener('click', function() {
+   /*document.getElementById('chartIcon').addEventListener('click', function() {
     // Paneli ve overlay'i görünür yap
     document.getElementById('panel').style.display = 'block';
     document.getElementById('overlay').style.display = 'block';
@@ -88,7 +94,7 @@
   // Paneli ve overlay'i gizle
     document.getElementById('panel').style.display = 'none';
     document.getElementById('overlay').style.display = 'none';
-    });
+    })*/
   </script>
 </body>
 </html>
