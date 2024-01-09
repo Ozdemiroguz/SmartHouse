@@ -136,9 +136,8 @@ CREATE TABLE AVG_Pot_Humidity_Day (
     FOREIGN KEY (PotID) REFERENCES Pot(PotID)
 );
 
-
--- Stored Procedur for AVG_GAS_hr
-
+-- Stored Procedure for AVG_Gas_Hr
+DELIMITER //
 CREATE DEFINER=`u3mi6cucuf4vh59u`@`%` PROCEDURE `CalculateAvgGasHourly`()
 BEGIN
     DECLARE room_id INT;
@@ -162,18 +161,24 @@ BEGIN
         FROM Gas
         WHERE RoomID = room_id AND Time > NOW() - INTERVAL 1 HOUR;
         
-        -- Insert the calculated values into AVG_Gas_Hr
-        INSERT INTO AVG_Gas_Hr (RoomID, AvgGas, Time)
-        VALUES (room_id, avg_gas, NOW());
+        -- Check if the room_id already exists in AVG_Gas_Hr for the current hour
+        IF NOT EXISTS (SELECT 1 FROM AVG_Gas_Hr WHERE RoomID = room_id AND Time = NOW()) THEN
+            -- Insert the calculated values into AVG_Gas_Hr
+            INSERT INTO AVG_Gas_Hr (RoomID, AvgGas, Time)
+            VALUES (room_id, avg_gas, NOW());
+        END IF;
     END LOOP;
     
     CLOSE room_cursor;
     
 END
+//
+DELIMITER ;
 
 
--- Stored Procedur for AVG_POTHUM_hr
 
+-- Stored Procedure for AVG_Pot_Humidity_Hr
+DELIMITER //
 CREATE DEFINER=`u3mi6cucuf4vh59u`@`%` PROCEDURE `CalculateAvgPotHumidityHourly`()
 BEGIN
     DECLARE pot_id INT;
@@ -197,17 +202,22 @@ BEGIN
         FROM Pot_Humidity
         WHERE PotID = pot_id AND Time > NOW() - INTERVAL 1 HOUR;
         
-        -- Insert the calculated values into AVG_Pot_Humidity_Hr
-        INSERT INTO AVG_Pot_Humidity_Hr (PotID, AvgHumidity, Time)
-        VALUES (pot_id, avg_humidity, NOW());
+        -- Check if the pot_id already exists in AVG_Pot_Humidity_Hr for the current hour
+        IF NOT EXISTS (SELECT 1 FROM AVG_Pot_Humidity_Hr WHERE PotID = pot_id AND Time = NOW()) THEN
+            -- Insert the calculated values into AVG_Pot_Humidity_Hr
+            INSERT INTO AVG_Pot_Humidity_Hr (PotID, AvgHumidity, Time)
+            VALUES (pot_id, avg_humidity, NOW());
+        END IF;
     END LOOP;
     
     CLOSE pot_cursor;
     
 END
+//
+DELIMITER ;
 
--- Stored Procedur for AVG_TEMPHUM_hr
-
+-- Stored Procedure for AVG_Temp_Hum_Hr
+DELIMITER //
 CREATE DEFINER=`u3mi6cucuf4vh59u`@`%` PROCEDURE `CalculateAvgTempHumidityHourly`()
 BEGIN
     DECLARE room_id INT;
@@ -232,19 +242,23 @@ BEGIN
         FROM Temp_Hum
         WHERE RoomID = room_id AND Time > NOW() - INTERVAL 1 HOUR;
         
-        -- Insert the calculated values into AVG_Temp_Hum_Hr
-        INSERT INTO AVG_Temp_Hum_Hr (RoomID, AvgTemperature, AvgHumidity, Time)
-        VALUES (room_id, avg_temp, avg_humidity, NOW());
+        -- Check if the room_id already exists in AVG_Temp_Hum_Hr for the current hour
+        IF NOT EXISTS (SELECT 1 FROM AVG_Temp_Hum_Hr WHERE RoomID = room_id AND Time = NOW()) THEN
+            -- Insert the calculated values into AVG_Temp_Hum_Hr
+            INSERT INTO AVG_Temp_Hum_Hr (RoomID, AvgTemperature, AvgHumidity, Time)
+            VALUES (room_id, avg_temp, avg_humidity, NOW());
+        END IF;
     END LOOP;
     
     CLOSE room_cursor;
     
 END
-
+//
+DELIMITER ;
 
 
 -- Stored Procedure for AVG_Pot_Humidity_Day
-
+DELIMITER //
 CREATE DEFINER=`u3mi6cucuf4vh59u`@`%` PROCEDURE `CalculateAvgPotHumidityDaily`()
 BEGIN
     DECLARE pot_id INT;
@@ -268,17 +282,22 @@ BEGIN
         FROM AVG_Pot_Humidity_Hr
         WHERE PotID = pot_id AND DATE(Time) = CURDATE();
         
-        -- Insert the calculated values into AVG_Pot_Humidity_Day
-        INSERT INTO AVG_Pot_Humidity_Day (PotID, AvgHumidity, Date)
-        VALUES (pot_id, avg_humidity, calc_date);
+        -- Check if the pot_id already exists in AVG_Pot_Humidity_Day for the current day
+        IF NOT EXISTS (SELECT 1 FROM AVG_Pot_Humidity_Day WHERE PotID = pot_id AND Date = CURDATE()) THEN
+            -- Insert the calculated values into AVG_Pot_Humidity_Day
+            INSERT INTO AVG_Pot_Humidity_Day (PotID, AvgHumidity, Date)
+            VALUES (pot_id, avg_humidity, calc_date);
+        END IF;
     END LOOP;
     
     CLOSE pot_cursor;
     
 END
+//
+DELIMITER ;
 
 -- Stored Procedure for AVG_Gas_Day
-
+DELIMITER //
 CREATE DEFINER=`u3mi6cucuf4vh59u`@`%` PROCEDURE `CalculateAvgGasDaily`()
 BEGIN
     DECLARE room_id INT;
@@ -302,16 +321,22 @@ BEGIN
         FROM AVG_Gas_Hr
         WHERE RoomID = room_id AND DATE(Time) = CURDATE();
         
-        -- Insert the calculated values into AVG_Gas_Day
-        INSERT INTO AVG_Gas_Day (RoomID, AvgGas, Date)
-        VALUES (room_id, avg_gas, calc_date);
+        -- Check if the room_id already exists in AVG_Gas_Day for the current day
+        IF NOT EXISTS (SELECT 1 FROM AVG_Gas_Day WHERE RoomID = room_id AND Date = CURDATE()) THEN
+            -- Insert the calculated values into AVG_Gas_Day
+            INSERT INTO AVG_Gas_Day (RoomID, AvgGas, Date)
+            VALUES (room_id, avg_gas, calc_date);
+        END IF;
     END LOOP;
     
     CLOSE room_cursor;
     
 END
+//
+DELIMITER ;
 
 -- Stored Procedure for AVG_Temp_Hum_Day
+DELIMITER //
 CREATE DEFINER=`u3mi6cucuf4vh59u`@`%` PROCEDURE `CalculateAvgTempHumidityDaily`()
 BEGIN
     DECLARE room_id INT;
@@ -336,14 +361,19 @@ BEGIN
         FROM AVG_Temp_Hum_Hr
         WHERE RoomID = room_id AND DATE(Time) = CURDATE();
         
-        -- Insert the calculated values into AVG_Temp_Hum_Day
-        INSERT INTO AVG_Temp_Hum_Day (RoomID, AvgTemperature, AvgHumidity, Date)
-        VALUES (room_id, avg_temp, avg_humidity, calc_date);
+        -- Check if the room_id already exists in AVG_Temp_Hum_Day for the current day
+        IF NOT EXISTS (SELECT 1 FROM AVG_Temp_Hum_Day WHERE RoomID = room_id AND Date = CURDATE()) THEN
+            -- Insert the calculated values into AVG_Temp_Hum_Day
+            INSERT INTO AVG_Temp_Hum_Day (RoomID, AvgTemperature, AvgHumidity, Date)
+            VALUES (room_id, avg_temp, avg_humidity, calc_date);
+        END IF;
     END LOOP;
     
     CLOSE room_cursor;
     
 END
+//
+DELIMITER ;
 
 
 -- Event for AVG_Temp_Hum_Day
