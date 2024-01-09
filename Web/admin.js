@@ -151,7 +151,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
 async function fetchUsers() {
     const userListElement = document.getElementById('userList');
-
     fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
@@ -351,6 +350,7 @@ function openUserInfoModalAddUser() {
     saveButton.onclick = addUser;
 
 }
+/*oda verileri çek */ 
 function openRooms(userID) {
     console.log(userID);
     //fetch rooms
