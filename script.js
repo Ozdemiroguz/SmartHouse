@@ -39,8 +39,7 @@ function drawBasic() {
     data.addColumn('number', 'Temprature');
     data.addColumn({ type: 'string', role: 'style' });
     data.addRows(chartData);
-    var chart = new google.visualization.ColumnChart(
-        document.getElementById('chart_div'));
+    var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));
     chart.draw(data, options);
 }
 function drawChart() {
@@ -48,10 +47,7 @@ function drawChart() {
     data.addColumn('timeofday', 'Time of Day');
     data.addColumn('number', 'Motivation Level');
     data.addColumn({ type: 'string', role: 'style' });
-
     // İlk veri satırları
-
-
     data.addRows(chartData);
 
     // Grafik seçenekleri
