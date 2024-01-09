@@ -1,31 +1,36 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="main.css">
     <title>Anasayfa</title>
 </head>
+
 <body>
     <div class="topnav">
         <a class="active" href="#home">HOME</a>
         <a href="#contact" onclick="redirectToContact()">CONTACT</a>
         <a href="#Logout" onclick="redirectToSignIn()">LOGOUT</a>
+
         <h1 style="color:purple">SOMEONE'S HOUSE</h1>
     </div>
     <div class="body_container">
         <div class="card">
             <img src="image/user.jpg" alt="user" style="width: 80%;border-radius:50% ; margin:auto; margin-top: 10px;">
             <p style="margin-bottom:30px ;" id="userInfo"></p>
-           <!-- <h2>USERNAME</h2>
+            <!-- <h2>USERNAME</h2>
             <p class="title">NAME SURNAME</p>
             <p class="title">INFORMATION </p>
             -->
             <div>
                 <p style="margin-top: 10px;" id="city"><i class="fa-solid fa-location-dot"></i> ISTANBUL</p>
                 <div class="ik">
-                    <i class="fa-solid fa-cloud" ></i>
+                    <i class="fa-solid fa-cloud"></i>
                     <i class="fa-solid fa-temperature-low"></i>
                     <i class="fa-solid fa-droplet"></i>
                 </div>
@@ -35,30 +40,41 @@
                     <p id="humidity"></p>
                 </div>
                 <label class="switch">
-                    <span class="sun"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="#ffd43b"><circle r="5" cy="12" cx="12"></circle><path d="m21 13h-1a1 1 0 0 1 0-2h1a1 1 0 0 1 0 2zm-17 0h-1a1 1 0 0 1 0-2h1a1 1 0 0 1 0 2zm13.66-5.66a1 1 0 0 1 -.66-.29 1 1 0 0 1 0-1.41l.71-.71a1 1 0 1 1 1.41 1.41l-.71.71a1 1 0 0 1 -.75.29zm-12.02 12.02a1 1 0 0 1 -.71-.29 1 1 0 0 1 0-1.41l.71-.66a1 1 0 0 1 1.41 1.41l-.71.71a1 1 0 0 1 -.7.24zm6.36-14.36a1 1 0 0 1 -1-1v-1a1 1 0 0 1 2 0v1a1 1 0 0 1 -1 1zm0 17a1 1 0 0 1 -1-1v-1a1 1 0 0 1 2 0v1a1 1 0 0 1 -1 1zm-5.66-14.66a1 1 0 0 1 -.7-.29l-.71-.71a1 1 0 0 1 1.41-1.41l.71.71a1 1 0 0 1 0 1.41 1 1 0 0 1 -.71.29zm12.02 12.02a1 1 0 0 1 -.7-.29l-.66-.71a1 1 0 0 1 1.36-1.36l.71.71a1 1 0 0 1 0 1.41 1 1 0 0 1 -.71.24z"></path></g></svg></span>
-                    <span class="moon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="m223.5 32c-123.5 0-223.5 100.3-223.5 224s100 224 223.5 224c60.6 0 115.5-24.2 155.8-63.4 5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6-96.9 0-175.5-78.8-175.5-176 0-65.8 36-123.1 89.3-153.3 6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"></path></svg></span>   
+                    <span class="sun"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                            <g fill="#ffd43b">
+                                <circle r="5" cy="12" cx="12"></circle>
+                                <path
+                                    d="m21 13h-1a1 1 0 0 1 0-2h1a1 1 0 0 1 0 2zm-17 0h-1a1 1 0 0 1 0-2h1a1 1 0 0 1 0 2zm13.66-5.66a1 1 0 0 1 -.66-.29 1 1 0 0 1 0-1.41l.71-.71a1 1 0 1 1 1.41 1.41l-.71.71a1 1 0 0 1 -.75.29zm-12.02 12.02a1 1 0 0 1 -.71-.29 1 1 0 0 1 0-1.41l.71-.66a1 1 0 0 1 1.41 1.41l-.71.71a1 1 0 0 1 -.7.24zm6.36-14.36a1 1 0 0 1 -1-1v-1a1 1 0 0 1 2 0v1a1 1 0 0 1 -1 1zm0 17a1 1 0 0 1 -1-1v-1a1 1 0 0 1 2 0v1a1 1 0 0 1 -1 1zm-5.66-14.66a1 1 0 0 1 -.7-.29l-.71-.71a1 1 0 0 1 1.41-1.41l.71.71a1 1 0 0 1 0 1.41 1 1 0 0 1 -.71.29zm12.02 12.02a1 1 0 0 1 -.7-.29l-.66-.71a1 1 0 0 1 1.36-1.36l.71.71a1 1 0 0 1 0 1.41 1 1 0 0 1 -.71.24z">
+                                </path>
+                            </g>
+                        </svg></span>
+                    <span class="moon"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512">
+                            <path
+                                d="m223.5 32c-123.5 0-223.5 100.3-223.5 224s100 224 223.5 224c60.6 0 115.5-24.2 155.8-63.4 5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6-96.9 0-175.5-78.8-175.5-176 0-65.8 36-123.1 89.3-153.3 6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z">
+                            </path>
+                        </svg></span>
                     <input type="checkbox" class="input">
                     <span class="slider"></span>
-                  </label>
+                </label>
             </div>
         </div>
-        <div class="blue-container" id="blueContainer"> 
+        <div class="blue-container" id="blueContainer">
             <div class="box" id="roomBox" style="display: none; flex-direction: column; border-width: 2; width: 200px;">
                 <p>odalar</p>
-                <div  style="color:black" class="datas" id="datas">
+                <div style="color:black" class="datas" id="datas">
                     <p id="tempc" style="margin-top: 5px;">Temp:</p>
-                    <p id="humidityc" style="margin-top: 5px;">Humidity: <p>
-                        <p id="gasc" style="margin-top: 5px;">Gas:</p>
-                        <p id="firec" style="margin-top: 5px;">Fire:</p>
-                        <p id="movec" style="margin-top: 5px;">Move:</p>
+                    <p id="humidityc" style="margin-top: 5px;">Humidity: </p>
+                    <p id="gasc" style="margin-top: 5px;">Gas:</p>
+                    <p id="firec" style="margin-top: 5px;">Fire:</p>
+                    <p id="movec" style="margin-top: 5px;">Move:</p>
                 </div>
                 <i class="fa-solid fa-chart-simple" id="chartIcon" style="cursor: pointer;"></i>
-               <!--   <div style=" width: 100%; flex-direction: row; display: flex; ">
+                <!--   <div style=" width: 100%; flex-direction: row; display: flex; ">
                     <div id="chart_div" style=" flex: 1; height: 500px;"></div>
                     <div id="chart_div1" style=" flex: 1; height: 500px;"></div>
                 </div>
             </div>-->
-           <!--  <div id="boxmodal" class="modal">
+                <!--  <div id="boxmodal" class="modal">
                 <div class="modal-content">
                     <span class="close">&times;</span>
                     <div class="datas" id="datas">
@@ -70,31 +86,41 @@
                     </div>
                 </div>
             </div>-->
-           
+
+            </div>
+
         </div>
-       
-    </div>
- <script src="main.js"></script>
- <script>  
-    function redirectToSignIn() {
-    window.location.href = "index.html";
-  }
-  function redirectToContact(){
-        alert("Phone Number : 05********  E-mail: info@eltagron.com.tr.");
-        
-    } 
-   /*document.getElementById('chartIcon').addEventListener('click', function() {
-    // Paneli ve overlay'i görünür yap
-    document.getElementById('panel').style.display = 'block';
-    document.getElementById('overlay').style.display = 'block';
-    });
+        <div class="redContainer" id="redContainer" style="display: none; ">
 
 
-    document.getElementById('kapatButton').addEventListener('click', function() {
-  // Paneli ve overlay'i gizle
-    document.getElementById('panel').style.display = 'none';
-    document.getElementById('overlay').style.display = 'none';
-    })*/
-  </script>
+            <div id="Hum" style="display: flex;flex-direction: row;">
+                <div id="lineChartHum" style="height: 200px;"></div>
+                <div id="graphChartHum" style="height: 200px;"></div>
+            </div>
+            <div id="Temp"></div>
+            <div id="Gas"></div>
+            <div id="Fire"></div>
+            <div id="Move"></div>
+
+
+        </div>
+        <script src="main.js"></script>
+        <script>
+            function redirectToSignIn() {
+                window.location.href = "index.html";
+            }
+            function redirectToContact() {
+                alert("Phone Number : 05********  E-mail: info@eltagron.com.tr.");
+
+            }
+            document.getElementById('chartIcon').addEventListener('click', function () {
+                // Paneli ve overlay'i görünür yap
+                console.log("chartIcon clicked");
+                document.getElementById('redContainer').style.display = 'block';
+                document.getElementById('overlay').style.display = 'block';
+            });
+
+        </script>
 </body>
+
 </html>

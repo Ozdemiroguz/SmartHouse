@@ -7,10 +7,11 @@ currentUser = {
     numberOfRooms: 0,
     active: 0
 };
+var roomIDS = [];
 let weatherData = {};
 const city = document.getElementById("city");
 const temp = document.getElementById("temp");
-const humidity =  document.getElementById("humidity");
+const humidity = document.getElementById("humidity");
 const feels_like = document.getElementById("feels_like");
 window.addEventListener("DOMContentLoaded", loadContent)
 
@@ -25,36 +26,35 @@ window.addEventListener("DOMContentLoaded", loadContent)
     { roomId: 7, roomName: "Misafir odası", roomDesc: "Misafir odası verileri için tıklayınız" },
 ]*/
 function loadContent() {
-    fetchWeather() 
+    fetchWeather()
     loadUserLocally()
     loadUserFromServer()
     console.log(currentUser)
-    createRoom() 
-    GetTemperature()
+    createRoom()
 }
 
-function fetchWeather(){
-    const url ="https://api.openweathermap.org/data/2.5/weather?q=Istanbul&appid=08c51fb1f1565c23c154f933b3230297&units=metric";
+function fetchWeather() {
+    const url = "https://api.openweathermap.org/data/2.5/weather?q=Istanbul&appid=08c51fb1f1565c23c154f933b3230297&units=metric";
 
     fetch(url).then(res => {
-         if(res.ok){
+        if (res.ok) {
             return res.json();
-        }else {
+        } else {
             throw new Error("Yer algılanamadı");
         }
     })
-    .then(
-        (data) => {
-            console.log(data)
-            temp.innerText= data.main.temp;
-            feels_like.innerText=data.main.feels_like;
-            humidity.innerText=data.main.humidity;
-            
-        }
-    )
-    .catch((error) => {
-        console.error("Hava durumu alınırken hata oluştu:", error);
-    });
+        .then(
+            (data) => {
+                console.log(data)
+                temp.innerText = data.main.temp;
+                feels_like.innerText = data.main.feels_like;
+                humidity.innerText = data.main.humidity;
+
+            }
+        )
+        .catch((error) => {
+            console.error("Hava durumu alınırken hata oluştu:", error);
+        });
 
 }
 var name = localStorage.getItem('ad');
@@ -102,7 +102,14 @@ function createRoom() {
             }
             data.data.forEach(room => {
                 let roomBox = document.getElementById("roomBox").cloneNode(true);
-                roomBox.style.display = "inline-block";
+                console.log(roomBox.children[2])
+                roomBox.children[2].addEventListener("click", () => {
+                    openRedConatiner(room.RoomID);
+                }); roomBox.style.display = "inline-block";
+                roomBox.id = room.RoomID;
+
+
+                roomIDS.push(room.RoomID);
                 roomBox.children[0].innerText = room.RoomType
                 blueContainer.append(roomBox)
             });
@@ -116,10 +123,8 @@ function loadUserLocally() {
     if (storedUser) {
         // JSON formatındaki kullanıcı bilgilerini nesneye dönüştürüyoruz
         const tempUser = JSON.parse(storedUser);
-        console.log(tempUser)
         currentUser.ID = tempUser.userId;
         currentUser.mail = tempUser.email;
-        console.log(currentUser)
 
         console.log('User loaded from local storage:', currentUser);
     } else {
@@ -276,22 +281,197 @@ function GetColor(value) {
                 : value < 20 ? "#F97C00"
                     : "#FE3F02";
 }*/
-function GetTemperature()
-{
-    fetch(`https://nodejs-mysql-api-sand.vercel.app/api/v1/getSensor/getAllLatestSensorReadings?roomID=${roomID}`, {
-    method: 'GET',
-    headers: {
-        'Authorization': 'Bearer YOUR_API_KEY',
-        'Content-Type': 'application/json',
-    },
-})
-    .then(response => response.json())
-    .then(data => {
-        console.log('Getting temperature...');
-        console.log(data);
-    })
-    .catch(error => {
-        
+async function GetSensorReadings(roomID) {
+    try {
+        const response = await fetch(`https://nodejs-mysql-api-sand.vercel.app/api/v1/getSensor/getAllLatestSensorReadings?roomID=${roomID}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer YOUR_API_KEY',
+                'Content-Type': 'application/json',
+            },
+        });
+
+        const data = await response.json();
+        console.log('Getting sensor readings...');
+        return data.data;
+    } catch (error) {
         console.error('Error:', error);
-    });
+        throw error; // Propagate the error further if needed
+    }
 }
+async function GetSensorReadingsByType(roomID, sensorType) {
+    try {
+        const response = await fetch(`https://nodejs-mysql-api-sand.vercel.app/api/v1/getSensor/getSensorReadings10?sensorType=${sensorType}&roomID=${roomID}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer YOUR_API_KEY',
+                'Content-Type': 'application/json',
+            },
+        });
+
+        const data = await response.json();
+        console.log('Getting sensor readings...');
+        console.log(data.data);
+        return data.data;
+    } catch (error) {
+        console.error('Error:', error);
+        throw error; // Propagate the error further if needed
+    }
+}
+
+/*setSensorReadingsInterval();
+function setSensorReadingsInterval() {
+    setInterval(async function () {
+        await setSensorReadings();
+
+    }, 5000);
+}
+setSensorReadingsInterval();
+
+async function setSensorReadings() {
+    console.log(roomIDS);
+
+    // Use Promise.all to wait for all promises to resolve
+    await Promise.all(roomIDS.map(async (roomID) => {
+        try {
+            const roomSensorReadings = await GetSensorReadings(roomID);
+            const room = document.getElementById(roomID);
+            room.children[1].children[0].innerText = `Temprature:${roomSensorReadings[0].LastTemperature} °C`
+            room.children[1].children[1].innerText = `Humidity:${roomSensorReadings[0].LastHumidity} %`
+            room.children[1].children[2].innerText = `Gas:${roomSensorReadings[0].LastGas} `
+            room.children[1].children[3].innerText = `Fire:${roomSensorReadings[0].LastFire} `
+            room.children[1].children[4].innerText = `Motion:${roomSensorReadings[0].LastMove}`
+        } catch (error) {
+            console.error('Error while setting sensor readings:', error);
+        }
+    }));
+
+}*/
+function openRedConatiner(roomID) {
+    document.getElementById("blueContainer").style.display = "none"
+    document.getElementById("redContainer").style.display = "block"
+    console.log(roomID)
+    currentUser.roomID = roomID;
+
+    setInterval(function () {
+
+        GetTemperature()
+        drawBasic();
+        drawChart();
+    }, 5000)
+}
+
+//////////////////////////RED CONTAINER//////////////////////////
+var chartData = [];
+const options = {
+
+    title: 'Temperature Of The Room',
+    hAxis: {
+        title: 'Time of Day',
+        format: 'H:mm:ss',
+
+
+    },
+    vAxis: {
+        title: 'Temperature (scale of 5-30)',
+        viewWindow: {
+            min: 15,
+            max: 30,
+        }
+
+    },
+    legend: 'none',
+
+};
+
+
+google.charts.load('current', { packages: ['corechart'] });
+google.charts.setOnLoadCallback(drawBasic);
+google.charts.setOnLoadCallback(drawChart);
+// 10 
+
+
+document.getElementById("blueContainer").style.display == "none" ? setInterval(function () {
+
+    GetTemperature()
+    drawBasic();
+    drawChart();
+}, 5000) : print("blue container açık");
+
+
+function drawBasic() {
+
+    var data = new google.visualization.DataTable();
+    data.addColumn('timeofday', 'Time of Day');
+    data.addColumn('number', 'Temprature');
+    data.addColumn({ type: 'string', role: 'style' });
+    data.addRows(chartData);
+    var chart = new google.visualization.ColumnChart(
+        document.getElementById('graphChartHum'));
+    chart.draw(data, options);
+}
+function drawChart() {
+    var data = new google.visualization.DataTable();
+    data.addColumn('timeofday', 'Time of Day');
+    data.addColumn('number', 'Motivation Level');
+    data.addColumn({ type: 'string', role: 'style' });
+
+    // İlk veri satırları
+
+
+    data.addRows(chartData);
+
+    // Grafik seçenekleri
+
+
+    var chart = new google.visualization.LineChart(document.getElementById('lineChartHum'));
+
+    chart.draw(data, options);
+}
+function GetColor(value) {
+    return value < 14 ? "#FDFD04"
+        : value < 16 ? "#FBD400"
+            : value < 18 ? "#FB9E00"
+                : value < 20 ? "#F97C00"
+                    : "#FE3F02";
+}
+async function GetTemperature() {
+
+    try {
+        const response = await fetch(`https://nodejs-mysql-api-sand.vercel.app/api/v1/getSensor/getSensorReadings10?sensorType=${"Temp_Hum"}&roomID=${currentUser.roomID}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer YOUR_API_KEY',
+                'Content-Type': 'application/json',
+            },
+        });
+
+        const data = await response.json();
+        console.log('Getting sensor readings...');
+        console.log(data.data);
+        var temp = []
+
+        data.data.forEach(temperature => {
+            var d = new Date(temperature.Time);
+            console.log(d);
+            var hour = d.getHours();
+            var minute = d.getMinutes();
+            var second = d.getSeconds();
+
+            var Temprature = [{ v: [hour, minute, second] }, temperature.Temperature, `color: ${GetColor(temperature.Temperature)}`]
+            temp.push(Temprature);
+            console.log(temp);
+        });
+        chartData = temp;
+    } catch (error) {
+        console.error('Error:', error);
+        throw error; // Propagate the error further if needed
+    }
+
+
+
+    console.log(chartData);
+    console.log(chartData);
+
+}
+
