@@ -346,90 +346,84 @@ BEGIN
 END
 
 
--- Trigger for AVG_Temp_Hum_Day
+-- Event for AVG_Temp_Hum_Day
 
 DELIMITER //
-
-CREATE TRIGGER CalculateAvgTempHumidityDailyTrigger
-AFTER INSERT ON AVG_Temp_Hum_Hr
-FOR EACH ROW
+CREATE EVENT CalculateAvgTempHumidityDailyEvent
+ON SCHEDULE EVERY 1 DAY
+DO
 BEGIN
     CALL CalculateAvgTempHumidityDaily();
-END //
-
+END;
+//
 DELIMITER ;
 
-
--- Trigger for AVG_Gas_Day
+-- Event for AVG_Gas_Day
 
 DELIMITER //
-
-CREATE TRIGGER CalculateAvgGasDailyTrigger
-AFTER INSERT ON AVG_Gas_Hr
-FOR EACH ROW
+CREATE EVENT CalculateAvgGasDailyEvent
+ON SCHEDULE EVERY 1 DAY
+DO
 BEGIN
     CALL CalculateAvgGasDaily();
-END //
-
+END;
+//
 DELIMITER ;
 
 
--- Trigger for AVG_Pot_Humidity_Day
+-- Event for AVG_Pot_Humidity_Day
 
 DELIMITER //
-
-CREATE TRIGGER CalculateAvgPotHumidityDailyTrigger
-AFTER INSERT ON AVG_Pot_Humidity_Hr
-FOR EACH ROW
+CREATE EVENT CalculateAvgPotHumidityDailyEvent
+ON SCHEDULE EVERY 1 DAY
+DO
 BEGIN
     CALL CalculateAvgPotHumidityDaily();
-END //
-
+END;
+//
 DELIMITER ;
 
 
--- Trigger for AVG_Temp_Hum_Hr
+-- Event for AVG_Temp_Hum_Hr
 
 DELIMITER //
-
-CREATE TRIGGER CalculateAvgTempHumidityHourlyTrigger
-AFTER INSERT ON Temp_Hum
-FOR EACH ROW
+CREATE EVENT CalculateAvgTempHumidityHourlyEvent
+ON SCHEDULE EVERY 1 HOUR
+DO
 BEGIN
     CALL CalculateAvgTempHumidityHourly();
-END //
-
+END;
+//
 DELIMITER ;
 
 
--- Trigger for AVG_Gas_Hr
+-- Event for AVG_Gas_Hr
+
 
 DELIMITER //
-
-CREATE TRIGGER CalculateAvgGasHourlyTrigger
-AFTER INSERT ON Gas
-FOR EACH ROW
+CREATE EVENT CalculateAvgGasHourlyEvent
+ON SCHEDULE EVERY 1 HOUR
+DO
 BEGIN
     CALL CalculateAvgGasHourly();
-END //
-
+END;
+//
 DELIMITER ;
 
--- Trigger for AVG_Pot_Humidity_Hr
+-- Event for AVG_Pot_Humidity_Hr
 
 
 DELIMITER //
-
-CREATE TRIGGER CalculateAvgPotHumidityHourlyTrigger
-AFTER INSERT ON Pot_Humidity
-FOR EACH ROW
+CREATE EVENT CalculateAvgPotHumidityHourlyEvent
+ON SCHEDULE EVERY 1 HOUR
+DO
 BEGIN
     CALL CalculateAvgPotHumidityHourly();
-END //
-
+END;
+//
 DELIMITER ;
 
 
 -- SET TIMEZONE
 
-SET time_zone = '+03:00';
+SET global time_zone = '+03:00';
