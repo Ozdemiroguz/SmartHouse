@@ -104,22 +104,6 @@ function createRoom() {
                 let roomBox = document.getElementById("roomBox").cloneNode(true);
                 roomBox.style.display = "inline-block";
                 roomBox.children[0].innerText = room.RoomType
-                fetch(`https://nodejs-mysql-api-sand.vercel.app/api/v1/getSensor/getAllLatestSensorReadings?roomID=${roomID}`, {
-    method: 'GET',
-    headers: {
-        'Authorization': 'Bearer YOUR_API_KEY',
-        'Content-Type': 'application/json',
-    },
-})
-    .then(response => response.json())
-    .then(data => {
-        console.log('Getting temperature...');
-        console.log(data);
-    })
-    .catch(error => {
-        
-        console.error('Error:', error);
-    });
                 blueContainer.append(roomBox)
             });
         })
