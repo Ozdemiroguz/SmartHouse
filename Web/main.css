@@ -334,10 +334,3 @@ h1 {
 
     /* Animasyon süresi ve türü */
 }
-
-.redContainer>div:hover {
-    width: 400px;
-    height: 380px;
-    transition: all 0.5s ease-in-out;
-    /* Hover durumunda yükseklik */
-}

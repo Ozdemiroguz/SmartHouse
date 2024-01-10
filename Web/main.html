@@ -90,37 +90,59 @@
             </div>
 
         </div>
-        <div class="redContainer" id="redContainer" style="display: none; ">
+        <div class="redContainer" id="redContainer" style="display: none; position: relative; ">
+            <div style="position: absolute; font-size: 50px; top: 0;" id="backBlue" onclick="backBlue()">
+                <i class="fa-solid fa-arrow-left" style="cursor: pointer;"></i>
 
+            </div>
 
-            <div id="Hum" style="display: flex;flex-direction: row;">
+            <div id="Temp" style="display: flex;flex-direction: row; flex: 2;margin-top: 30px; ">
+                <div id="lineChartTemp" style="height: 200px;"></div>
+                <div id="graphChartTemp" style="height: 200px;"></div>
+            </div>
+            <div id="Hum" style="display: flex;flex-direction: row; flex: 2;">
                 <div id="lineChartHum" style="height: 200px;"></div>
                 <div id="graphChartHum" style="height: 200px;"></div>
             </div>
-            <div id="Temp"></div>
-            <div id="Gas"></div>
-            <div id="Fire"></div>
-            <div id="Move"></div>
+
+            <div id="GasFireMove"
+                style="display: flex;flex-direction: row; flex: 1; width: 9000x; flex-direction: row;justify-content: space-evenly ;margin-top: 50px;">
+                <div>
+                    <img src="image/natural-gas.png" style="width: 40px;" alt="">
+                    <div id="Gas"></div>
+                </div>
+                <div>
+                    <img src="image/danger.png" style="width: 40px;" alt="">
+                    <div id="Fire"></div>
+                </div>
+                <div>
+                    <img src="image/movement.png" style="width: 40px;" alt="">
+                    <div id="Move"></div>
+                </div>
+            </div>
 
 
         </div>
-        <script src="main.js"></script>
-        <script>
-            function redirectToSignIn() {
-                window.location.href = "index.html";
-            }
-            function redirectToContact() {
-                alert("Phone Number : 05********  E-mail: info@eltagron.com.tr.");
 
-            }
-            document.getElementById('chartIcon').addEventListener('click', function () {
-                // Paneli ve overlay'i görünür yap
-                console.log("chartIcon clicked");
-                document.getElementById('redContainer').style.display = 'block';
-                document.getElementById('overlay').style.display = 'block';
-            });
 
-        </script>
+    </div>
+    <script src="main.js"></script>
+    <script>
+        function redirectToSignIn() {
+            window.location.href = "index.html";
+        }
+        function redirectToContact() {
+            alert("Phone Number : 05********  E-mail: info@eltagron.com.tr.");
+
+        }
+        document.getElementById('chartIcon').addEventListener('click', function () {
+            // Paneli ve overlay'i görünür yap
+            console.log("chartIcon clicked");
+            document.getElementById('redContainer').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        });
+
+    </script>
 </body>
 
 </html>

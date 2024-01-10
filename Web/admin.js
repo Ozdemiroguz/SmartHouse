@@ -164,8 +164,7 @@ async function fetchUsers() {
                 userItem.innerHTML = `
                     <div>Name: ${user.Name}, Surname: ${user.Surname}, Email: ${user.Mail}, Password:*********, Number of Room: ${user.NumberOfRooms}, Active:${user.Active}<span class="user-status online"></span></div>
                     <i class="fa-solid fa-gear" onclick="openUserInfoModal(${user.UserID})"></i>
-                    <i class="fa-solid fa-house "onclick="openRooms(${user.UserID})"></i>
-                    <i class="fa-solid fa-house "onclick="openRoomInfoModal(${user.UserID})">+</i>
+                    
 
                     <button class="delete-user-button" onclick="deleteUser(${user.UserID})">Delete User</button>
                 `;
@@ -209,8 +208,8 @@ function openUserInfoModal(userID) {
     const userRoomInput = document.getElementById('userRoom');
     const userActiveInput = document.getElementById('userActive');
     const userPhoneInput = document.getElementById('userPhone');
-    
-   
+
+
     // Burada userID'yi kullanarak API'den ilgili kullanıcı bilgilerini çekebilirsiniz
     //fetcth ile kullanıcı bilgilerini çek
     // İsteğe bağlı olarak istediğiniz kullanıcının ID'sini belirtin
@@ -232,8 +231,8 @@ function openUserInfoModal(userID) {
         .catch(error => {
             console.error('Veri çekme hatası:', error);
         });
-       
-    
+
+    openRooms(userID);
 }
 // Kullanıcı bilgilerini güncelle
 function saveUserInfo() {
@@ -271,6 +270,7 @@ function saveUserInfo() {
     alert("Kullanıcı bilgileri güncellendi");
     //sayfayı yenile
     window.location.reload();
+    o
     //
 }
 function addUser() {
@@ -350,7 +350,7 @@ function openUserInfoModalAddUser() {
     saveButton.onclick = addUser;
 
 }
-/*oda verileri çek */ 
+/*oda verileri çek */
 function openRooms(userID) {
     console.log(userID);
     //fetch rooms
@@ -383,7 +383,7 @@ function openRooms(userID) {
                     <button class="delete-room-button" onclick="deleteRoom(${room.RoomID})">Delete Room</button>
                 `;
                 console.log(roomItem);
-                document.getElementById('roomList').appendChild(roomItem);
+                document.getElementById('roomInfoModal').appendChild(roomItem);
             });
         })
         .catch(error => {

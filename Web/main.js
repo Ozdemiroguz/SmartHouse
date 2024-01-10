@@ -319,7 +319,7 @@ async function GetSensorReadingsByType(roomID, sensorType) {
     }
 }
 
-/*setSensorReadingsInterval();
+setSensorReadingsInterval();
 function setSensorReadingsInterval() {
     setInterval(async function () {
         await setSensorReadings();
@@ -346,23 +346,30 @@ async function setSensorReadings() {
         }
     }));
 
-}*/
+}
+let myInterval;
 function openRedConatiner(roomID) {
     document.getElementById("blueContainer").style.display = "none"
     document.getElementById("redContainer").style.display = "block"
     console.log(roomID)
     currentUser.roomID = roomID;
 
-    setInterval(function () {
-
-        GetTemperature()
+    myInterval = setInterval(function () {
+        GetHum();
+        GetTemperature();
         drawBasic();
         drawChart();
+        drawBasic1();
+        drawChart1();
+        setFireMoveGas();
+
     }, 5000)
+    myInterval;
 }
 
 //////////////////////////RED CONTAINER//////////////////////////
 var chartData = [];
+chartDataHum = [];
 const options = {
 
     title: 'Temperature Of The Room',
@@ -383,20 +390,36 @@ const options = {
     legend: 'none',
 
 };
+const optionsHum = {
 
+    title: 'Humidity Of The Room',
+    hAxis: {
+        title: 'Time of Day',
+        format: 'H:mm:ss',
+
+
+    },
+    vAxis: {
+        title: 'Humidty (scale of 5-30)',
+        viewWindow: {
+            min: 15,
+            max: 70,
+        }
+
+    },
+    legend: 'none',
+
+};
 
 google.charts.load('current', { packages: ['corechart'] });
 google.charts.setOnLoadCallback(drawBasic);
 google.charts.setOnLoadCallback(drawChart);
+google.charts.setOnLoadCallback(drawBasic1);
+google.charts.setOnLoadCallback(drawChart1);
 // 10 
 
 
-document.getElementById("blueContainer").style.display == "none" ? setInterval(function () {
 
-    GetTemperature()
-    drawBasic();
-    drawChart();
-}, 5000) : print("blue container açık");
 
 
 function drawBasic() {
@@ -407,7 +430,7 @@ function drawBasic() {
     data.addColumn({ type: 'string', role: 'style' });
     data.addRows(chartData);
     var chart = new google.visualization.ColumnChart(
-        document.getElementById('graphChartHum'));
+        document.getElementById('graphChartTemp'));
     chart.draw(data, options);
 }
 function drawChart() {
@@ -418,15 +441,35 @@ function drawChart() {
 
     // İlk veri satırları
 
-
     data.addRows(chartData);
-
     // Grafik seçenekleri
-
-
-    var chart = new google.visualization.LineChart(document.getElementById('lineChartHum'));
+    var chart = new google.visualization.LineChart(document.getElementById('lineChartTemp'));
 
     chart.draw(data, options);
+} function drawBasic1() {
+
+    var data = new google.visualization.DataTable();
+    data.addColumn('timeofday', 'Time of Day');
+    data.addColumn('number', 'Temprature');
+    data.addColumn({ type: 'string', role: 'style' });
+    data.addRows(chartDataHum);
+    var chart = new google.visualization.ColumnChart(
+        document.getElementById('graphChartHum'));
+    chart.draw(data, optionsHum);
+}
+function drawChart1() {
+    var data = new google.visualization.DataTable();
+    data.addColumn('timeofday', 'Time of Day');
+    data.addColumn('number', 'Motivation Level');
+    data.addColumn({ type: 'string', role: 'style' });
+
+    // İlk veri satırları
+
+    data.addRows(chartDataHum);
+    // Grafik seçenekleri
+    var chart = new google.visualization.LineChart(document.getElementById('lineChartHum'));
+
+    chart.draw(data, optionsHum);
 }
 function GetColor(value) {
     return value < 14 ? "#FDFD04"
@@ -475,3 +518,133 @@ async function GetTemperature() {
 
 }
 
+async function GetHum() {
+
+    try {
+        const response = await fetch(`https://nodejs-mysql-api-sand.vercel.app/api/v1/getSensor/getSensorReadings10?sensorType=${"Temp_Hum"}&roomID=${currentUser.roomID}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer YOUR_API_KEY',
+                'Content-Type': 'application/json',
+            },
+        });
+
+        const data = await response.json();
+        console.log('Getting sensor readings...');
+        console.log(data.data);
+        var temp = []
+
+        data.data.forEach(humidity => {
+            var d = new Date(humidity.Time);
+            var hour = d.getHours();
+            var minute = d.getMinutes();
+            var second = d.getSeconds();
+
+            var humidity = [{ v: [hour, minute, second] }, humidity.Humidity, `color: #FE3F02`]
+            temp.push(humidity);
+        });
+        chartDataHum = temp;
+    } catch (error) {
+        console.error('Error:', error);
+        throw error; // Propagate the error further if needed
+    }
+
+
+
+    console.log(chartDataHum);
+
+}
+async function GetGas() {
+
+    try {
+        const response = await fetch(`https://nodejs-mysql-api-sand.vercel.app/api/v1/getSensor/getSensorReadings10?sensorType=${"Temp_Hum"}&roomID=${currentUser.roomID}`, {
+            method: 'GET',
+            headers: {
+                'Authorization': 'Bearer YOUR_API_KEY',
+                'Content-Type': 'application/json',
+            },
+        });
+
+        const data = await response.json();
+        console.log('Getting sensor readings...');
+        console.log(data.data);
+        var temp = []
+
+        data.data.forEach(humidity => {
+            var d = new Date(humidity.Time);
+            var hour = d.getHours();
+            var minute = d.getMinutes();
+            var second = d.getSeconds();
+
+            var humidity = [{ v: [hour, minute, second] }, humidity.Humidity, `color: #FE3F02`]
+            temp.push(humidity);
+        });
+        chartDataHum = temp;
+    } catch (error) {
+        console.error('Error:', error);
+        throw error; // Propagate the error further if needed
+    }
+
+
+
+    console.log(chartDataHum);
+
+}
+// Gas, Fire ve Move elementlerini alın
+var gasElement = document.getElementById("Gas");
+var fireElement = document.getElementById("Fire");
+var moveElement = document.getElementById("Move");
+
+// Gas seviyesini kontrol etmek için örnek bir fonksiyon
+function checkGasLevel(gasLevel) {
+    if (gasLevel < 360) {
+        gasElement.textContent = "Gas level stable.";
+    } else {
+        gasElement.textContent = "Gas level may be unsafe!";
+    }
+}
+
+// Fire durumunu kontrol etmek için örnek bir fonksiyon
+function checkFireStatus(hasFire) {
+    if (hasFire) {
+        fireElement.textContent = "Fire detected! Danger!";
+    } else {
+        fireElement.textContent = "No fire detected.";
+    }
+}
+
+// Move durumunu kontrol etmek için örnek bir fonksiyon
+function checkMovement(movementDetected) {
+    if (movementDetected) {
+        moveElement.textContent = "Movement detected at home.";
+    } else {
+        moveElement.textContent = "No movement detected.";
+    }
+}
+/*
+// Örnek: Gas seviyesini kontrol et
+var gasLevel = 60; // Örnek bir gas seviyesi
+checkGasLevel(gasLevel);
+
+// Örnek: Fire durumunu kontrol et
+var hasFire = true; // Örnek bir yangın durumu
+checkFireStatus(hasFire);
+
+// Örnek: Move durumunu kontrol et
+var movementDetected = false; // Örnek bir hareket durumu
+checkMovement(movementDetected);*/
+async function setFireMoveGas() {
+
+    const roomSensorReadings = await GetSensorReadings(currentUser.roomID);
+    checkGasLevel(roomSensorReadings[0].LastGas);
+    checkFireStatus(roomSensorReadings[0].LastFire);
+    checkMovement(roomSensorReadings[0].LastMove);
+
+
+
+}
+function backBlue() {
+    clearInterval(myInterval);
+    document.getElementById("blueContainer").style.display = "block"
+    document.getElementById("redContainer").style.display = "none"
+}
