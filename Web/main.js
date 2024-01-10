@@ -34,7 +34,7 @@ function loadContent() {
 }
 
 function fetchWeather() {
-    const url = "https://api.openweathermap.org/data/2.5/weather?q=Istanbul&appid=08c51fb1f1565c23c154f933b3230297&units=metric";
+    const url = "https://api.openweathermap.org/data/2.5/weather?q=Eskisehir&appid=08c51fb1f1565c23c154f933b3230297&units=metric";
 
     fetch(url).then(res => {
         if (res.ok) {
