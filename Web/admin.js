@@ -373,17 +373,20 @@ function openRooms(userID) {
                 alert("Kullanıcının odası bulunmamaktadır");
                 return;
             }
+            document.getElementById('roomInfoModal1').innerHTML = "";
+
             data.data.forEach(room => {
                 const roomItem = document.createElement('div');
                 roomItem.classList.add('room-item');
                 roomItem.dataset.roomid = room.RoomID; // Kullanıcı kimliğini veri özelliğine ekle
+                roomItem.id = room.RoomID;
                 roomItem.innerHTML = `
-                    <div>RoomID: ${room.RoomID}, Room Name: ${room.RoomName}, Room Status:${room.RoomStatus}<span class="user-status online"></span></div>
+                    <div>RoomID: ${room.RoomID}, Room Name: ${room.RoomName}, RoomType:${room.RoomType}OptimumeTprature:${room.OptimumTemperature}<span class="user-status online"></span></div>
                     <i class="fa-solid fa-gear" onclick="openRoomInfoModal(${room.RoomID})"></i>
                     <button class="delete-room-button" onclick="deleteRoom(${room.RoomID})">Delete Room</button>
                 `;
                 console.log(roomItem);
-                document.getElementById('roomInfoModal').appendChild(roomItem);
+                document.getElementById('roomInfoModal1').appendChild(roomItem);
             });
         })
         .catch(error => {
@@ -391,11 +394,19 @@ function openRooms(userID) {
         });
 
 }
-function openRoomInfoModal(userId) {
+function openRoomInfoModal(RoomID) {
     //modalı aç
-    const roomInfoModal = document.getElementById('roomInfoModal');
-    roomInfoModal.style.display = 'block';
-    currentUserId = userId;
+    console.log(RoomID);
+    const roomInfoModal2 = document.getElementById('roomInfoModal2');
+    openRoomInfoModal = document.getElementById('roomInfoModal');
+    let roominfo = document.getElementById(RoomID);
+    console.log(roominfo);
+
+
+    roomInfoModal2.children[0].innerHTML = roominfo.children[0].innerHTML;
+
+
+    roomInfoModal2.style.display = 'block';
     // Kullanıcı bilgilerini modal'a doldur
     // Burada userID'yi kullanarak API'den ilgili kullanıcı bilgilerini çekebilirsiniz
     //fetcth ile kullanıcı bilgilerini çek
@@ -403,7 +414,7 @@ function openRoomInfoModal(userId) {
 }
 function closeRoomInfo() {
     // Modal'ı kapat
-    const roomInfoModal = document.getElementById('roomInfoModal');
+    const roomInfoModal = document.getElementById('roomInfoModal1');
     roomInfoModal.style.display = 'none';
 }
 function addRoom() {

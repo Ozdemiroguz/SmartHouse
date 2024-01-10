@@ -69,10 +69,30 @@
                     <option value="Children Room">Children Room</option>
                     <option value="Other">Other</option>
                 </select>
-                <button id="saveButton" onclick="addRoom()">Save</button>
-                <button onclick="closeRoomInfo()">Cancel</button>
+                <button id="saveButton" onclick="addRoom()">Add Room</button>
+
             </div>
-        </div>
+            <div id="roomInfoModal1"></div>
+            <div style="position: absolute;bottom: 30px; right: 30px;">
+                <button onclick="closeUserInfo()">Cancel</button>
+            </div>
+            <div id="roomInfoModal2" style="bottom: 100px; position:absolute; display: none;">
+                <input type="text" id="roomName" placeholder="Name">
+                <input type="text" id="optimumTemperature" placeholder="Optimum Temperature">
+                <input type="text" id="optimumHumidity" placeholder="Optimum Humidity">
+                <input type="text" id="optimumGase" placeholder="Optimum Gase">
+                <select name="roomType" id="roomType">
+                    <option value="Bedroom">Bedroom</option>
+                    <option value="Living Room">Living Room</option>
+                    <option value="Kitchen">Kitchen</option>
+                    <option value="Bathroom">Bathroom</option>
+                    <option value="Office">Balcony</option>
+                    <option value="Children Room">Children Room</option>
+                    <option value="Other">Other</option>
+                </select>
+                <button id="saveButton" onclick="updateRoom()">Update Room</button>
+
+            </div>
     </section>
     <script>
         function openUserInfo(userId) {
