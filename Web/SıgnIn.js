@@ -1,6 +1,6 @@
 function githubLogin() {
     const client_id = '4093b88e1fcd28532c8a'; // GitHub Developer Portal'dan alacağınız client ID
-    const redirect_uri = 'http://127.0.0.1:5500/main.html'; // GitHub Developer Portal'dan ayarladığınız geri dönüş URL'si
+    const redirect_uri = 'https://smarthomesys.online/main.html'; // GitHub Developer Portal'dan ayarladığınız geri dönüş URL'si
     // GitHub'a yönlendirme için URL oluşturma
     const githubAuthUrl = `https://github.com/login/oauth/authorize?client_id=${client_id}&redirect_uri=${redirect_uri}&scope=user`;
 
